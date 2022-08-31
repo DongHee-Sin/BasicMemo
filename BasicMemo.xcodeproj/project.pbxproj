@@ -11,8 +11,15 @@
 		D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969C328BF281F003F6A30 /* SceneDelegate.swift */; };
 		D08969CB28BF2820003F6A30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08969CA28BF2820003F6A30 /* Assets.xcassets */; };
 		D08969CE28BF2820003F6A30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08969CC28BF2820003F6A30 /* LaunchScreen.storyboard */; };
-		D08969D828BF2BBF003F6A30 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D08969D728BF2BBF003F6A30 /* SnapKit */; };
 		D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */; };
+		D0BB248028BF32E800DE0C66 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB247F28BF32E800DE0C66 /* Realm */; };
+		D0BB248228BF32E800DE0C66 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB248128BF32E800DE0C66 /* RealmSwift */; };
+		D0BB248528BF330D00DE0C66 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB248428BF330D00DE0C66 /* SnapKit */; };
+		D0BB248828BF333300DE0C66 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB248728BF333300DE0C66 /* IQKeyboardManagerSwift */; };
+		D0BB248B28BF3CD100DE0C66 /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */; };
+		D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */; };
+		D0BB249128BF3E0700DE0C66 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB249028BF3E0700DE0C66 /* BaseView.swift */; };
+		D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +30,10 @@
 		D08969CD28BF2820003F6A30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08969CF28BF2820003F6A30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewController.swift; sourceTree = "<group>"; };
+		D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
+		D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		D0BB249028BF3E0700DE0C66 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +41,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08969D828BF2BBF003F6A30 /* SnapKit in Frameworks */,
+				D0BB248528BF330D00DE0C66 /* SnapKit in Frameworks */,
+				D0BB248828BF333300DE0C66 /* IQKeyboardManagerSwift in Frameworks */,
+				D0BB248228BF32E800DE0C66 /* RealmSwift in Frameworks */,
+				D0BB248028BF32E800DE0C66 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +70,8 @@
 		D08969C028BF281F003F6A30 /* BasicMemo */ = {
 			isa = PBXGroup;
 			children = (
+				D0BB248C28BF3D0000DE0C66 /* Utility */,
 				D08969D528BF28A1003F6A30 /* App */,
-				D08969DC28BF2CDB003F6A30 /* Extension */,
 				D08969D928BF2C31003F6A30 /* View */,
 				D08969CA28BF2820003F6A30 /* Assets.xcassets */,
 				D08969CC28BF2820003F6A30 /* LaunchScreen.storyboard */,
@@ -78,14 +92,42 @@
 		D08969D928BF2C31003F6A30 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */,
+				D0BB248928BF3CAB00DE0C66 /* MemoListView */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		D08969DC28BF2CDB003F6A30 /* Extension */ = {
+		D0BB248928BF3CAB00DE0C66 /* MemoListView */ = {
 			isa = PBXGroup;
 			children = (
+				D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */,
+				D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */,
+			);
+			path = MemoListView;
+			sourceTree = "<group>";
+		};
+		D0BB248C28BF3D0000DE0C66 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB249228BF3E4000DE0C66 /* Extension */,
+				D0BB248D28BF3D1800DE0C66 /* Base */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		D0BB248D28BF3D1800DE0C66 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */,
+				D0BB249028BF3E0700DE0C66 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		D0BB249228BF3E4000DE0C66 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -107,7 +149,10 @@
 			);
 			name = BasicMemo;
 			packageProductDependencies = (
-				D08969D728BF2BBF003F6A30 /* SnapKit */,
+				D0BB247F28BF32E800DE0C66 /* Realm */,
+				D0BB248128BF32E800DE0C66 /* RealmSwift */,
+				D0BB248428BF330D00DE0C66 /* SnapKit */,
+				D0BB248728BF333300DE0C66 /* IQKeyboardManagerSwift */,
 			);
 			productName = BasicMemo;
 			productReference = D08969BE28BF281F003F6A30 /* BasicMemo.app */;
@@ -138,7 +183,9 @@
 			);
 			mainGroup = D08969B528BF281F003F6A30;
 			packageReferences = (
-				D08969D628BF2BBF003F6A30 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D0BB247E28BF32E800DE0C66 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				D0BB248328BF330D00DE0C66 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D0BB248628BF333300DE0C66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = D08969BF28BF281F003F6A30 /* Products */;
 			projectDirPath = "";
@@ -166,8 +213,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */,
+				D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */,
 				D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */,
 				D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */,
+				D0BB249128BF3E0700DE0C66 /* BaseView.swift in Sources */,
+				D0BB248B28BF3CD100DE0C66 /* MemoListView.swift in Sources */,
 				D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,7 +431,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D08969D628BF2BBF003F6A30 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		D0BB247E28BF32E800DE0C66 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.6;
+			};
+		};
+		D0BB248328BF330D00DE0C66 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -388,13 +447,36 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		D0BB248628BF333300DE0C66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D08969D728BF2BBF003F6A30 /* SnapKit */ = {
+		D0BB247F28BF32E800DE0C66 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D08969D628BF2BBF003F6A30 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = D0BB247E28BF32E800DE0C66 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		D0BB248128BF32E800DE0C66 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0BB247E28BF32E800DE0C66 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		D0BB248428BF330D00DE0C66 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0BB248328BF330D00DE0C66 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		D0BB248728BF333300DE0C66 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0BB248628BF333300DE0C66 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
