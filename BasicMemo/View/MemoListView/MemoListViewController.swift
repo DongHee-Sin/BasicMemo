@@ -32,7 +32,7 @@ final class MemoListViewController: BaseViewController {
     
     
     func setNavigation() {
-        navigationItem.title = "n개의 메모"
+        navigationItem.title = "\(1234.addComma ?? "")개의 메모"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setNavigationBarButtonItem()
