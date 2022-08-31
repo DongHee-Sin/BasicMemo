@@ -6,8 +6,33 @@
 //
 
 import UIKit
+import SnapKit
 
 
-class MemoListView: BaseView {
+final class MemoListView: BaseView {
     
+    // MARK: - Propertys
+    let test: UILabel = {
+        let view = UILabel()
+        view.text = "absdfsad"
+        view.textColor = .label
+        return view
+    }()
+    
+    
+    
+    
+    // MARK: - Methods
+    override func configureUI() {
+        [test].forEach {
+            self.addSubview($0)
+        }
+    }
+    
+    
+    override func setConstraint() {
+        test.snp.makeConstraints { make in
+            make.center.equalTo(self)
+        }
+    }
 }

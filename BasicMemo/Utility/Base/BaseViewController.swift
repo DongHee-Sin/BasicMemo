@@ -13,15 +13,24 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         
         configure()
-        
-        colorSetting()
+        setColor()
+        setNavigationAppearance()
     }
     
     
     func configure() {}
     
     
-    private final func colorSetting() {
-         
+    private final func setColor() {
+        view.backgroundColor = .background
+        navigationController?.navigationBar.tintColor = .iconTint
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.label]
+    }
+    
+    
+    private final func setNavigationAppearance() {
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .navigationBarBackground
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
 }

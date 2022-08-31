@@ -7,8 +7,15 @@
 
 import UIKit
 
-class MemoListViewController: BaseViewController {
+final class MemoListViewController: BaseViewController {
 
+    
+    // MARK: - LifeCycle
+    let memoListView = MemoListView()
+    override func loadView() {
+        self.view = memoListView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

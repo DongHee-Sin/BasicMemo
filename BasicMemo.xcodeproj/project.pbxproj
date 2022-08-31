@@ -70,8 +70,8 @@
 		D08969C028BF281F003F6A30 /* BasicMemo */ = {
 			isa = PBXGroup;
 			children = (
-				D0BB248C28BF3D0000DE0C66 /* Utility */,
 				D08969D528BF28A1003F6A30 /* App */,
+				D0BB248C28BF3D0000DE0C66 /* Utility */,
 				D08969D928BF2C31003F6A30 /* View */,
 				D08969CA28BF2820003F6A30 /* Assets.xcassets */,
 				D08969CC28BF2820003F6A30 /* LaunchScreen.storyboard */,
