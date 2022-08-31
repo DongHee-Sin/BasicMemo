@@ -97,6 +97,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    
     // Header
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MemoListTableViewHeader.identifier) as? MemoListTableViewHeader else {
@@ -112,6 +113,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 70
     }
+    
     
     
     // Cell
@@ -132,6 +134,31 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         return 70
     }
     
+    
+    
+    // Leading Swipe
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let pin = UIContextualAction(style: .normal, title: nil, handler: { action, view, completion in
+            print("고정시키기!")
+        })
+        pin.backgroundColor = .systemOrange
+        pin.image = UIImage(systemName: "pin.fill")
+        
+        return UISwipeActionsConfiguration(actions: [pin])
+    }
+    
+    
+    // Trailing Swipe
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
+            self?.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
+                print("데이터 삭제 + 리로드")
+            }
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 
