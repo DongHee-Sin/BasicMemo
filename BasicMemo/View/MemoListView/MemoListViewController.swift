@@ -18,6 +18,49 @@ final class MemoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
+    
+    
+    
+    
+    // MARK: - Methods
+    override func configure() {
+        setNavigation()
+        setTableView()
+    }
+    
+    
+    func setNavigation() {
+        navigationItem.title = "n개의 메모"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    
+    func setTableView() {
+        memoListView.tableView.delegate = self
+        memoListView.tableView.dataSource = self
+        memoListView.tableView.register(MemoListTableViewCell.self, forCellReuseIdentifier: MemoListTableViewCell.identifier)
+    }
+}
+
+
+
+
+// MARK: - TableView Protocol
+extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 }

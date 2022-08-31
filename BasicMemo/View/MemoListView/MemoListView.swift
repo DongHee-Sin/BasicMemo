@@ -12,10 +12,9 @@ import SnapKit
 final class MemoListView: BaseView {
     
     // MARK: - Propertys
-    let test: UILabel = {
-        let view = UILabel()
-        view.text = "absdfsad"
-        view.textColor = .label
+    let tableView: UITableView = {
+        let view = UITableView(frame: CGRect(), style: .insetGrouped)
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -24,15 +23,15 @@ final class MemoListView: BaseView {
     
     // MARK: - Methods
     override func configureUI() {
-        [test].forEach {
+        [tableView].forEach {
             self.addSubview($0)
         }
     }
     
     
     override func setConstraint() {
-        test.snp.makeConstraints { make in
-            make.center.equalTo(self)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
 }
