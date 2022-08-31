@@ -33,3 +33,10 @@ extension UITableViewCell: ReusableProtocol {
         return String(describing: self)
     }
 }
+
+
+extension UITableViewHeaderFooterView: ReusableProtocol {
+    public static var identifier: String {
+        return String(describing: self)
+    }
+}

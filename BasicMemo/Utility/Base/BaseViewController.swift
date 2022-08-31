@@ -30,7 +30,7 @@ class BaseViewController: UIViewController {
     
     private final func setNavigationAppearance() {
         let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.backgroundColor = .navigationBarBackground
+        navigationBarAppearance.backgroundColor = .background
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
 }
