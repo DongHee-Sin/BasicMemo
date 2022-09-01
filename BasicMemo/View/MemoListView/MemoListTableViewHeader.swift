@@ -14,7 +14,7 @@ class MemoListTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Propertys
     let headerTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 27, weight: .heavy)
+        view.font = .systemFont(ofSize: 24, weight: .heavy)
         view.textColor = .label
         return view
     }()
@@ -46,7 +46,7 @@ class MemoListTableViewHeader: UITableViewHeaderFooterView {
     
     func setConstraint() {
         headerTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(self).offset(10)
+            make.centerY.equalTo(self) //.offset(10)
             make.leading.equalTo(self).offset(20)
         }
     }

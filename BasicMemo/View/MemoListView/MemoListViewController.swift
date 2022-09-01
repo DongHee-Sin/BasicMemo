@@ -124,14 +124,18 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         
-        header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
+        guard memoManager.pinMemoCount > 0 || section != 0 else { return nil }
         
+        header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
+
         return header
     }
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
+        guard memoManager.pinMemoCount > 0 || section != 0 else { return 0 }
+        
+        return 60
     }
     
     
