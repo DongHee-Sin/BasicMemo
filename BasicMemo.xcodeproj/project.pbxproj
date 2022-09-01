@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */; };
 		D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */; };
 		D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB428BF768100BBE471 /* ReusableProtocol.swift */; };
 		D06FCFB728BF7E6800BBE471 /* MemoListTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewCell.swift; sourceTree = "<group>"; };
 		D06FCFB428BF768100BBE471 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 		D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewHeader.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */,
 				D06FCFB828BF99C100BBE471 /* Int+Extension.swift */,
 				D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */,
+				D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */,
 				D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */,
 				D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */,
+				D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */,
 				D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */,
 				D06FCFB928BF99C100BBE471 /* Int+Extension.swift in Sources */,
 				D0BB249128BF3E0700DE0C66 /* BaseView.swift in Sources */,

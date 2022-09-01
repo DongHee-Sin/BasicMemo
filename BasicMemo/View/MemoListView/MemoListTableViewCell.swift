@@ -92,7 +92,7 @@ class MemoListTableViewCell: UITableViewCell {
     
     func updateCell(data: Memo) {
         titleLabel.text = data.title
-        dateLabel.text = data.savedDate.formatted()
+        dateLabel.text = data.savedDate.format
         contentLabel.text = data.content
     }
 }

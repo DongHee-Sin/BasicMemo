@@ -10,7 +10,7 @@ import UIKit
 final class MemoListViewController: BaseViewController {
 
     // MARK: - Propertys
-    let memoManager = MemoDataManager()
+    var memoManager = MemoDataManager()
     
     
     
@@ -33,6 +33,7 @@ final class MemoListViewController: BaseViewController {
         setNavigation()
         setSearchController()
         setTableView()
+        setRealmObserver()
     }
     
     
@@ -82,7 +83,22 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    @objc func barButtonTapped() {}
+    func setRealmObserver() {
+        memoManager.addObserver { [weak self] in
+            self?.memoManager.fetchData()
+            self?.memoListView.tableView.reloadSections([0], with: .fade)
+        }
+    }
+    
+    
+    @objc func barButtonTapped() {
+        do {
+            try memoManager.write(Memo(title: "TITLE", content: "CONTENT"))
+        }
+        catch {
+            print(error)
+        }
+    }
 }
 
 
@@ -144,8 +160,11 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Leading Swipe
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let pin = UIContextualAction(style: .normal, title: nil, handler: { action, view, completion in
-            print("고정시키기!")
+        let pin = UIContextualAction(style: .normal, title: nil, handler: { [weak self] action, view, completion in
+            guard let self = self else { return }
+            if !self.memoManager.memoPinToggle(at: indexPath.row, section: indexPath.section) {
+                self.showAlert(title: "메모는 최대 5개까지 고정시킬 수 있습니다.")
+            }
         })
         pin.backgroundColor = .systemOrange
         pin.image = UIImage(systemName: "pin.fill")
@@ -157,8 +176,14 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     // Trailing Swipe
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
-            self?.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
-                print("데이터 삭제 + 리로드")
+            guard let self = self else { return }
+            self.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
+                do {
+                    try self.memoManager.remove(at: indexPath.row, section: indexPath.section)
+                }
+                catch {
+                    self.showAlert(title: "데이터 삭제에 실패했습니다.")
+                }
             }
         }
         delete.image = UIImage(systemName: "trash.fill")

@@ -29,17 +29,18 @@ struct MemoDataManager {
     var pinMemoCount: Int { pinMemoList.count }
     
     // Observer 토큰
-    private var notificationToken: NotificationToken?
+    private var memoNotificationToken: NotificationToken?
+    private var pinMemoNotificationToken: NotificationToken?
     
     
     
     // init
     init() {
-        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
             $0.isSetPin == false
         }
         
-        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
             $0.isSetPin == true
         }
         
@@ -63,12 +64,12 @@ struct MemoDataManager {
     
     
     // Read
-    mutating private func fetchData() {
-        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+    mutating func fetchData() {
+        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
             $0.isSetPin == false
         }
         
-        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
             $0.isSetPin == true
         }
     }
@@ -102,7 +103,7 @@ struct MemoDataManager {
     }
     
     
-    func memoPinToggle(at index: Int, section: Int) -> Bool {
+    mutating func memoPinToggle(at index: Int, section: Int) -> Bool {
         guard pinMemoCount < 5 || section == 0 else { return false }
         
         do {
@@ -135,15 +136,12 @@ struct MemoDataManager {
     
     
     // Observer 달기
-    mutating func addObserver(section: Int, completion: @escaping () -> Void) {
-        if section == 0 {
-            notificationToken = pinMemoList.observe { _ in
-                completion()
-            }
-        }else {
-            notificationToken = memoList.observe { _ in
-                completion()
-            }
+    mutating func addObserver(completion: @escaping () -> Void) {
+        memoNotificationToken = memoList.observe { _ in
+            completion()
+        }
+        pinMemoNotificationToken = pinMemoList.observe { _ in
+            completion()
         }
     }
 }
