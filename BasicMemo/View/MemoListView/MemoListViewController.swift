@@ -14,6 +14,8 @@ final class MemoListViewController: BaseViewController {
     
     let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
     
+    var searchKeyword: String = ""
+    
     
     
     
@@ -174,7 +176,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }else {
             let data = memoManager.getSearchResult(at: indexPath.row)
             if let data = data {
-                cell.updateCell(data: data)
+                cell.updateCell(data: data, keyword: searchKeyword)
             }
         }
         
@@ -228,7 +230,8 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - SearchController
 extension MemoListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        memoManager.fetchSearchResult(searchWord: searchController.searchBar.text ?? "")
+        searchKeyword = searchController.searchBar.text ?? ""
+        memoManager.fetchSearchResult(searchWord: searchKeyword)
         resultTableViewController.tableView.reloadData()
     }
 }
