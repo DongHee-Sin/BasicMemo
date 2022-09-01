@@ -21,7 +21,6 @@ class MemoListTableViewCell: UITableViewCell {
     let horizontalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
-        view.spacing = 12
         view.distribution = .fill
         return view
     }()
@@ -68,21 +67,22 @@ class MemoListTableViewCell: UITableViewCell {
     
     // MARK: - Methdos
     func configureUI() {
-        [verticalStackView, horizontalStackView].forEach {
-            self.addSubview($0)
+        self.addSubview(verticalStackView)
+        
+        [titleLabel, horizontalStackView].forEach {
+            verticalStackView.addArrangedSubview($0)
         }
         
         [dateLabel, contentLabel].forEach {
             horizontalStackView.addArrangedSubview($0)
         }
-        
-        [titleLabel, horizontalStackView].forEach {
-            verticalStackView.addArrangedSubview($0)
-        }
     }
     
     
     func setConstraint() {
+        
+        dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         verticalStackView.snp.makeConstraints { make in
             make.centerY.equalTo(self)
             make.horizontalEdges.equalTo(self).inset(12)

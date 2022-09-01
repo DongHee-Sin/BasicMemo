@@ -9,6 +9,11 @@ import UIKit
 
 final class MemoListViewController: BaseViewController {
 
+    // MARK: - Propertys
+    let memoManager = MemoDataManager()
+    
+    
+    
     
     // MARK: - LifeCycle
     let memoListView = MemoListView()

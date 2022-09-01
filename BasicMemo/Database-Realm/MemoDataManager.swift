@@ -84,6 +84,7 @@ struct MemoDataManager {
     }
     
     
+    
     func memoPinToggle(at index: Int) -> Bool {
         guard count < 5 else { return false }
         
