@@ -85,8 +85,7 @@ final class MemoListViewController: BaseViewController {
     
     func setRealmObserver() {
         memoManager.addObserver { [weak self] in
-            self?.memoManager.fetchData()
-            self?.memoListView.tableView.reloadSections([0], with: .fade)
+            self?.memoListView.tableView.reloadData()
         }
     }
     

@@ -36,11 +36,11 @@ struct MemoDataManager {
     
     // init
     init() {
-        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
+        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false).where {
             $0.isSetPin == false
         }
         
-        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
+        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false).where {
             $0.isSetPin == true
         }
         
@@ -64,17 +64,6 @@ struct MemoDataManager {
     
     
     // Read
-    mutating func fetchData() {
-        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
-            $0.isSetPin == false
-        }
-        
-        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: false).where {
-            $0.isSetPin == true
-        }
-    }
-    
-    
     func getMemo(at index: Int) -> Memo? {
         guard index < memoList.count else { return nil }
         return memoList[index]
