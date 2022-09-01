@@ -46,7 +46,7 @@ class MemoListTableViewHeader: UITableViewHeaderFooterView {
     
     func setConstraint() {
         headerTitle.snp.makeConstraints { make in
-            make.centerY.equalTo(self) //.offset(10)
+            make.centerY.equalTo(self)
             make.leading.equalTo(self).offset(20)
         }
     }

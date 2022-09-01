@@ -12,6 +12,8 @@ final class MemoListViewController: BaseViewController {
     // MARK: - Propertys
     var memoManager = MemoDataManager()
     
+    let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
+    
     
     
     
@@ -38,7 +40,7 @@ final class MemoListViewController: BaseViewController {
     
     
     func setNavigation() {
-        navigationItem.title = "\(1234.addComma ?? "")개의 메모"
+        navigationItem.title = "\(memoManager.totalMemoCount)개의 메모"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setNavigationBarButtonItem()
@@ -67,8 +69,15 @@ final class MemoListViewController: BaseViewController {
     
     
     func setSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
+        let searchController = UISearchController(searchResultsController: resultTableViewController)
         searchController.searchBar.placeholder = "검색"
+        
+        resultTableViewController.tableView.delegate = self
+        resultTableViewController.tableView.dataSource = self
+        resultTableViewController.tableView.register(MemoListTableViewCell.self, forCellReuseIdentifier: MemoListTableViewCell.identifier)
+        resultTableViewController.tableView.register(MemoListTableViewHeader.self, forHeaderFooterViewReuseIdentifier: MemoListTableViewHeader.identifier)
+        resultTableViewController.tableView.keyboardDismissMode = .onDrag
+        
         searchController.searchResultsUpdater = self
         
         self.navigationItem.searchController = searchController
@@ -108,12 +117,20 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Section / Rows
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if tableView == memoListView.tableView {
+            return 2
+        }else {
+            return 1
+        }
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? memoManager.pinMemoCount : memoManager.memoCount
+        if tableView == memoListView.tableView {
+            return section == 0 ? memoManager.pinMemoCount : memoManager.memoCount
+        }else {
+            return memoManager.searchResultCount
+        }
     }
     
     
@@ -124,9 +141,12 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         
-        guard memoManager.pinMemoCount > 0 || section != 0 else { return nil }
-        
-        header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
+        if tableView == memoListView.tableView {
+            guard memoManager.pinMemoCount > 0 || section != 0 else { return nil }
+            header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
+        }else {
+            header.headerTitle.text = "\(memoManager.searchResultCount)개 찾음"
+        }
 
         return header
     }
@@ -146,9 +166,16 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let data = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
-        if let data = data {
-            cell.updateCell(data: data)
+        if tableView == memoListView.tableView {
+            let data = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+            if let data = data {
+                cell.updateCell(data: data)
+            }
+        }else {
+            let data = memoManager.getSearchResult(at: indexPath.row)
+            if let data = data {
+                cell.updateCell(data: data)
+            }
         }
         
         return cell
@@ -201,6 +228,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - SearchController
 extension MemoListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text ?? "")
+        memoManager.fetchSearchResult(searchWord: searchController.searchBar.text ?? "")
+        resultTableViewController.tableView.reloadData()
     }
 }

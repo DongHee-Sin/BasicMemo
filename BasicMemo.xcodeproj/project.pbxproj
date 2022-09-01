@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */; };
+		D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */; };
 		D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */; };
 		D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB428BF768100BBE471 /* ReusableProtocol.swift */; };
 		D06FCFB728BF7E6800BBE471 /* MemoListTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewCell.swift; sourceTree = "<group>"; };
 		D06FCFB428BF768100BBE471 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 		D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewHeader.swift; sourceTree = "<group>"; };
@@ -67,6 +69,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D054972328C0F76C00E2F986 /* SearchResultVC */ = {
+			isa = PBXGroup;
+			children = (
+				D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */,
+			);
+			path = SearchResultVC;
+			sourceTree = "<group>";
+		};
+		D054972628C0FF7900E2F986 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */,
+				D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		D06FCFB328BF767800BBE471 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +145,7 @@
 		D08969D928BF2C31003F6A30 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D054972328C0F76C00E2F986 /* SearchResultVC */,
 				D0BB248928BF3CAB00DE0C66 /* MemoListView */,
 			);
 			path = View;
@@ -136,8 +156,7 @@
 			children = (
 				D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */,
 				D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */,
-				D06FCFB628BF7E6800BBE471 /* MemoListTableViewHeader.swift */,
-				D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */,
+				D054972628C0FF7900E2F986 /* TableView */,
 			);
 			path = MemoListView;
 			sourceTree = "<group>";
@@ -265,6 +284,7 @@
 				D06FCFB728BF7E6800BBE471 /* MemoListTableViewHeader.swift in Sources */,
 				D0BB248B28BF3CD100DE0C66 /* MemoListView.swift in Sources */,
 				D06FCFBE28BFB60500BBE471 /* Memo.swift in Sources */,
+				D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */,
 				D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */,
 				D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */,
 				D06FCFC028BFB79700BBE471 /* MemoDataManager.swift in Sources */,

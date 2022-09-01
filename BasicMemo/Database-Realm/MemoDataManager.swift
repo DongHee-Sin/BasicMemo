@@ -22,9 +22,11 @@ struct MemoDataManager {
     private let localRealm = try! Realm()
     
     // Database Table
+    var totalMemoList: Results<Memo>
     var memoList: Results<Memo>
     var pinMemoList: Results<Memo>
     
+    var totalMemoCount: Int { memoCount + pinMemoCount }
     var memoCount: Int { memoList.count }
     var pinMemoCount: Int { pinMemoList.count }
     
@@ -33,14 +35,21 @@ struct MemoDataManager {
     private var pinMemoNotificationToken: NotificationToken?
     
     
+    // SearchController
+    var searchResultList: Results<Memo>?
+    var searchResultCount: Int { searchResultList?.count ?? 0 }
+    
+    
     
     // init
     init() {
-        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false).where {
+        self.totalMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false)
+        
+        self.memoList = totalMemoList.where {
             $0.isSetPin == false
         }
         
-        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false).where {
+        self.pinMemoList = totalMemoList.where {
             $0.isSetPin == true
         }
         
@@ -65,13 +74,13 @@ struct MemoDataManager {
     
     // Read
     func getMemo(at index: Int) -> Memo? {
-        guard index < memoList.count else { return nil }
+        guard index < memoCount else { return nil }
         return memoList[index]
     }
     
     
     func getPinMemo(at index: Int) -> Memo? {
-        guard index < pinMemoList.count else { return nil }
+        guard index < pinMemoCount else { return nil }
         return pinMemoList[index]
     }
     
@@ -132,5 +141,19 @@ struct MemoDataManager {
         pinMemoNotificationToken = pinMemoList.observe { _ in
             completion()
         }
+    }
+    
+    
+    
+    // SearchController
+    mutating func fetchSearchResult(searchWord: String) {
+        searchResultList = totalMemoList.where {
+            $0.title.contains(searchWord) || $0.content.contains(searchWord)
+        }
+    }
+    
+    func getSearchResult(at index: Int) -> Memo? {
+        guard index < searchResultCount else { return nil }
+        return searchResultList?[index]
     }
 }
