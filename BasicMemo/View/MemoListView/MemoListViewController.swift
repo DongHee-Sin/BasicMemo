@@ -98,7 +98,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return section == 0 ? memoManager.pinMemoCount : memoManager.memoCount
     }
     
     
@@ -127,9 +127,10 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.titleLabel.text = "TITLE"
-        cell.dateLabel.text = "2022.02.04. 11:40"
-        cell.contentLabel.text = "오늘은 달이 익어가니 서둘러 젊은 피야 민들레 한 송이 들고 사랑을 어더ㅉ고 저쩌고 그런이야기"
+        let data = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+        if let data = data {
+            cell.updateCell(data: data)
+        }
         
         return cell
     }

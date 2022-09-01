@@ -22,9 +22,11 @@ struct MemoDataManager {
     private let localRealm = try! Realm()
     
     // Database Table
-    var database: Results<Memo>
+    var memoList: Results<Memo>
+    var pinMemoList: Results<Memo>
     
-    var count: Int { database.count }
+    var memoCount: Int { memoList.count }
+    var pinMemoCount: Int { pinMemoList.count }
     
     // Observer 토큰
     private var notificationToken: NotificationToken?
@@ -33,7 +35,13 @@ struct MemoDataManager {
     
     // init
     init() {
-        self.database = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true)
+        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+            $0.isSetPin == false
+        }
+        
+        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+            $0.isSetPin == true
+        }
         
         print("Realm is located at:", localRealm.configuration.fileURL!)
     }
@@ -54,24 +62,34 @@ struct MemoDataManager {
     
     
     
-    func getMemo(at index: Int) -> Memo? {
-        guard index < database.count else { return nil }
+    // Read
+    mutating private func fetchData() {
+        self.memoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+            $0.isSetPin == false
+        }
         
-        return database[index]
+        self.pinMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true).where {
+            $0.isSetPin == true
+        }
     }
     
     
+    func getMemo(at index: Int) -> Memo? {
+        guard index < memoList.count else { return nil }
+        return memoList[index]
+    }
     
-    // Read
-    mutating private func fetchData() {
-        database = localRealm.objects(Memo.self).sorted(byKeyPath: "title", ascending: true)
+    
+    func getPinMemo(at index: Int) -> Memo? {
+        guard index < pinMemoList.count else { return nil }
+        return pinMemoList[index]
     }
     
     
     
     // Update
-    func update(at index: Int, completion: (Memo) -> Void) throws {
-        let dataToUpdate = database[index]
+    func update(at index: Int, section: Int, completion: (Memo) -> Void) throws {
+        let dataToUpdate = section == 0 ? pinMemoList[index] : memoList[index]
         
         do {
             try localRealm.write({
@@ -84,12 +102,11 @@ struct MemoDataManager {
     }
     
     
-    
-    func memoPinToggle(at index: Int) -> Bool {
-        guard count < 5 else { return false }
+    func memoPinToggle(at index: Int, section: Int) -> Bool {
+        guard pinMemoCount < 5 || section == 0 else { return false }
         
         do {
-            try update(at: index) { memo in
+            try update(at: index, section: section) { memo in
                 memo.isSetPin.toggle()
             }
             return true
@@ -102,8 +119,8 @@ struct MemoDataManager {
     
     
     // Delete
-    func remove(at index: Int) throws {
-        let dataToDelete = database[index]
+    func remove(at index: Int, section: Int) throws {
+        let dataToDelete = section == 0 ? pinMemoList[index] : memoList[index]
         
         do {
             try localRealm.write {
@@ -118,9 +135,15 @@ struct MemoDataManager {
     
     
     // Observer 달기
-    mutating func addObserver(completion: @escaping () -> Void) {
-        notificationToken = database.observe { _ in
-            completion()
+    mutating func addObserver(section: Int, completion: @escaping () -> Void) {
+        if section == 0 {
+            notificationToken = pinMemoList.observe { _ in
+                completion()
+            }
+        }else {
+            notificationToken = memoList.observe { _ in
+                completion()
+            }
         }
     }
 }

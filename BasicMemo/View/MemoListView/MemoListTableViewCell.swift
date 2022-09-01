@@ -88,4 +88,11 @@ class MemoListTableViewCell: UITableViewCell {
             make.horizontalEdges.equalTo(self).inset(12)
         }
     }
+    
+    
+    func updateCell(data: Memo) {
+        titleLabel.text = data.title
+        dateLabel.text = data.savedDate.formatted()
+        contentLabel.text = data.content
+    }
 }
