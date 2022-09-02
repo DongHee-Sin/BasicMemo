@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D00F027A28C200F50015398F /* WriteMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F027928C200F40015398F /* WriteMemoViewController.swift */; };
+		D00F027C28C2021F0015398F /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F027B28C2021F0015398F /* WriteView.swift */; };
 		D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */; };
 		D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */; };
 		D054972828C10E3700E2F986 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054972728C10E3700E2F986 /* String+Extension.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D00F027928C200F40015398F /* WriteMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMemoViewController.swift; sourceTree = "<group>"; };
+		D00F027B28C2021F0015398F /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
 		D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		D054972728C10E3700E2F986 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -71,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D00F027828C200CB0015398F /* WriteMemoView */ = {
+			isa = PBXGroup;
+			children = (
+				D00F027928C200F40015398F /* WriteMemoViewController.swift */,
+				D00F027B28C2021F0015398F /* WriteView.swift */,
+			);
+			path = WriteMemoView;
+			sourceTree = "<group>";
+		};
 		D054972328C0F76C00E2F986 /* SearchResultVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +162,7 @@
 			children = (
 				D054972328C0F76C00E2F986 /* SearchResultVC */,
 				D0BB248928BF3CAB00DE0C66 /* MemoListView */,
+				D00F027828C200CB0015398F /* WriteMemoView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -277,8 +291,10 @@
 			files = (
 				D06FCFBB28BF9CF000BBE471 /* UIViewController+Extension.swift in Sources */,
 				D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */,
+				D00F027C28C2021F0015398F /* WriteView.swift in Sources */,
 				D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */,
 				D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */,
+				D00F027A28C200F50015398F /* WriteMemoViewController.swift in Sources */,
 				D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */,
 				D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */,
 				D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */,

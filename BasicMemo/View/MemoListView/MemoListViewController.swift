@@ -34,14 +34,13 @@ final class MemoListViewController: BaseViewController {
     
     // MARK: - Methods
     override func configure() {
-        setNavigation()
         setSearchController()
         setTableView()
         setRealmObserver()
     }
     
     
-    func setNavigation() {
+    override func setNavigationBar() {
         navigationItem.title = "\(memoManager.totalMemoCount)개의 메모"
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -63,10 +62,10 @@ final class MemoListViewController: BaseViewController {
         self.navigationController?.isToolbarHidden = false
         
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(barButtonTapped))
-        rightBarButton.tintColor = .iconTint
+        let writeMemoBarButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(barButtonTapped))
+        writeMemoBarButton.tintColor = .iconTint
         
-        self.toolbarItems = [flexibleSpaceItem, rightBarButton]
+        self.toolbarItems = [flexibleSpaceItem, writeMemoBarButton]
     }
     
     
@@ -238,6 +237,22 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         delete.image = UIImage(systemName: "trash.fill")
         
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    
+    
+    // Select Cell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        var selectedMemo: Memo?
+//
+//        if tableView == memoListView.tableView {
+//            //
+//        }else {
+//            //
+//        }
+        
+        let vc = WriteMemoViewController()
+        transition(vc, transitionStyle: .push)
     }
 }
 

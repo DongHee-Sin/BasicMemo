@@ -13,12 +13,17 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         
         configure()
+        setNavigationBar()
+        
         setColor()
         setNavigationAppearance()
     }
     
     
     func configure() {}
+    
+    
+    func setNavigationBar() {}
     
     
     private final func setColor() {
