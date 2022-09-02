@@ -62,7 +62,7 @@ final class MemoListViewController: BaseViewController {
         self.navigationController?.isToolbarHidden = false
         
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let writeMemoBarButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(barButtonTapped))
+        let writeMemoBarButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(writeButtonTapped))
         writeMemoBarButton.tintColor = .iconTint
         
         self.toolbarItems = [flexibleSpaceItem, writeMemoBarButton]
@@ -101,13 +101,13 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    @objc func barButtonTapped() {
-        do {
-            try memoManager.write(Memo(title: "TITLE", content: "CONTENT"))
-        }
-        catch {
-            print(error)
-        }
+    @objc func barButtonTapped() { }
+    
+    
+    @objc func writeButtonTapped() {
+        let vc = WriteMemoViewController()
+        vc.currentViewStatus = .write
+        transition(vc, transitionStyle: .push)
     }
 }
 
@@ -243,15 +243,16 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Select Cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        var selectedMemo: Memo?
-//
-//        if tableView == memoListView.tableView {
-//            //
-//        }else {
-//            //
-//        }
+        var selectedMemo: Memo?
+
+        if tableView == memoListView.tableView {
+            selectedMemo = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+        }else {
+            selectedMemo = memoManager.getSearchResult(at: indexPath.row)
+        }
         
         let vc = WriteMemoViewController()
+        vc.currentViewStatus = .read
         transition(vc, transitionStyle: .push)
     }
 }

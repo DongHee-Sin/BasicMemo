@@ -37,7 +37,11 @@ class WriteMemoViewController: BaseViewController {
     
     // MARK: - Methods
     override func configure() {
-        //
+        if currentViewStatus == .write {
+            writeView.textView.becomeFirstResponder()
+        }else {
+            
+        }
     }
     
     
@@ -45,10 +49,10 @@ class WriteMemoViewController: BaseViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         var rightBarButtonItems: [UIBarButtonItem] = []
-        rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(shareBarButtonTapped)))
         if currentViewStatus == .write {
             rightBarButtonItems.append(UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped)))
         }
+        rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(shareBarButtonTapped)))
         
         navigationItem.rightBarButtonItems = rightBarButtonItems
     }
