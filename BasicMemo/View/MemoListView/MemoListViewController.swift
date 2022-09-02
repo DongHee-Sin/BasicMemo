@@ -97,6 +97,7 @@ final class MemoListViewController: BaseViewController {
     func setRealmObserver() {
         memoManager.addObserver { [weak self] in
             self?.memoListView.tableView.reloadData()
+            self?.resultTableViewController.tableView.reloadData()
         }
     }
     
@@ -192,9 +193,17 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Leading Swipe
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let dataToUpdate: Memo?
+        
+        if tableView == memoListView.tableView {
+            dataToUpdate = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+        }else {
+            dataToUpdate = memoManager.getSearchResult(at: indexPath.row)
+        }
+        
         let pin = UIContextualAction(style: .normal, title: nil, handler: { [weak self] action, view, completion in
             guard let self = self else { return }
-            if !self.memoManager.memoPinToggle(at: indexPath.row, section: indexPath.section) {
+            if !self.memoManager.memoPinToggle(memo: dataToUpdate ?? Memo()) {
                 self.showAlert(title: "메모는 최대 5개까지 고정시킬 수 있습니다.")
             }
         })
@@ -207,11 +216,19 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Trailing Swipe
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let dataToDelete: Memo?
+        
+        if tableView == memoListView.tableView {
+            dataToDelete = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+        }else {
+            dataToDelete = memoManager.getSearchResult(at: indexPath.row)
+        }
+        
         let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
             guard let self = self else { return }
             self.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
                 do {
-                    try self.memoManager.remove(at: indexPath.row, section: indexPath.section)
+                    try self.memoManager.remove(memo: dataToDelete ?? Memo())
                 }
                 catch {
                     self.showAlert(title: "데이터 삭제에 실패했습니다.")

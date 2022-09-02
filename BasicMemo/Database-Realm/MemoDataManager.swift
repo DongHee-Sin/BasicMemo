@@ -32,7 +32,6 @@ struct MemoDataManager {
     
     // Observer 토큰
     private var memoNotificationToken: NotificationToken?
-    private var pinMemoNotificationToken: NotificationToken?
     
     
     // SearchController
@@ -87,12 +86,10 @@ struct MemoDataManager {
     
     
     // Update
-    func update(at index: Int, section: Int, completion: (Memo) -> Void) throws {
-        let dataToUpdate = section == 0 ? pinMemoList[index] : memoList[index]
-        
+    func update(memo: Memo, completion: (Memo) -> Void) throws {
         do {
             try localRealm.write({
-                completion(dataToUpdate)
+                completion(memo)
             })
         }
         catch {
@@ -101,11 +98,11 @@ struct MemoDataManager {
     }
     
     
-    mutating func memoPinToggle(at index: Int, section: Int) -> Bool {
-        guard pinMemoCount < 5 || section == 0 else { return false }
+    mutating func memoPinToggle(memo: Memo) -> Bool {
+        guard pinMemoCount < 5 || memo.isSetPin else { return false }
         
         do {
-            try update(at: index, section: section) { memo in
+            try update(memo: memo) { memo in
                 memo.isSetPin.toggle()
             }
             return true
@@ -118,12 +115,10 @@ struct MemoDataManager {
     
     
     // Delete
-    func remove(at index: Int, section: Int) throws {
-        let dataToDelete = section == 0 ? pinMemoList[index] : memoList[index]
-        
+    func remove(memo: Memo) throws {
         do {
             try localRealm.write {
-                localRealm.delete(dataToDelete)
+                localRealm.delete(memo)
             }
         }
         catch {
@@ -135,10 +130,7 @@ struct MemoDataManager {
     
     // Observer 달기
     mutating func addObserver(completion: @escaping () -> Void) {
-        memoNotificationToken = memoList.observe { _ in
-            completion()
-        }
-        pinMemoNotificationToken = pinMemoList.observe { _ in
+        memoNotificationToken = totalMemoList.observe { _ in
             completion()
         }
     }
