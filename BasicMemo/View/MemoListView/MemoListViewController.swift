@@ -101,12 +101,19 @@ final class MemoListViewController: BaseViewController {
     }
     
     
+    func reloadTableView() {
+        memoListView.tableView.reloadData()
+        resultTableViewController.tableView.reloadData()
+    }
+    
+    
     @objc func barButtonTapped() { }
     
     
     @objc func writeButtonTapped() {
         let vc = WriteMemoViewController()
         vc.currentViewStatus = .write
+        vc.delegate = self
         transition(vc, transitionStyle: .push)
     }
 }
@@ -252,6 +259,8 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let vc = WriteMemoViewController()
+        vc.readMemo = selectedMemo
+        vc.delegate = self
         vc.currentViewStatus = .read
         transition(vc, transitionStyle: .push)
     }
@@ -266,5 +275,39 @@ extension MemoListViewController: UISearchResultsUpdating {
         searchKeyword = searchController.searchBar.text ?? ""
         memoManager.fetchSearchResult(searchWord: searchKeyword)
         resultTableViewController.tableView.reloadData()
+    }
+}
+
+
+
+
+// MARK: - Save Memo Delegate
+extension MemoListViewController: SaveMemoDelegate {
+    
+    func saveMemo(title: String, content: String) {
+        let memo = Memo(title: title, content: content)
+        
+        do {
+            try memoManager.create(memo)
+            reloadTableView()
+        }
+        catch {
+            showAlert(title: "메모 저장에 실패했습니다.")
+        }
+    }
+    
+    
+    func updateMemo(memo: Memo, title: String, content: String) {
+        do {
+            try memoManager.update(memo: memo) { memo in
+                memo.title = title
+                memo.content = content
+                memo.savedDate = Date()
+            }
+            reloadTableView()
+        }
+        catch {
+            showAlert(title: "메모 저장에 실패했습니다.")
+        }
     }
 }

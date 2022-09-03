@@ -8,28 +8,38 @@
 import UIKit
 
 
+protocol SaveMemoDelegate {
+    func saveMemo(title: String, content: String)
+    
+    func updateMemo(memo: Memo, title: String, content: String)
+}
+
+
 enum WriteViewControllerStatus {
     case write
     case read
 }
 
 
-class WriteMemoViewController: BaseViewController {
+final class WriteMemoViewController: BaseViewController {
 
     // MARK: - Propertys
+    var readMemo: Memo?
+    
+    var delegate: SaveMemoDelegate?
+    
     var currentViewStatus: WriteViewControllerStatus? {
         didSet { viewStatusDidChanged() }
     }
     
-    
-    let shareBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareBarButtonTapped))
-    let finishBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped))
+    private lazy var shareBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareBarButtonTapped))
+    private lazy var finishBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped))
     
     
     
     
     // MARK: - LifeCycle
-    let writeView = WriteView()
+    private let writeView = WriteView()
     override func loadView() {
         self.view = writeView
     }
@@ -44,6 +54,8 @@ class WriteMemoViewController: BaseViewController {
     // MARK: - Methods
     override func configure() {
         writeView.textView.delegate = self
+        
+        updateTextView()
     }
     
     
@@ -65,6 +77,26 @@ class WriteMemoViewController: BaseViewController {
     }
     
     
+    func updateTextView() {
+        guard let memo = readMemo, currentViewStatus == .read else { return }
+        
+        writeView.textView.text = "\(memo.title)\n\(memo.content ?? "")"
+    }
+    
+    
+    func saveMemo() {
+        var separatedByEnter = writeView.textView.text.components(separatedBy: "\n")
+        let title = separatedByEnter.removeFirst()
+        let content = separatedByEnter.joined(separator: "\n")
+        
+        if let readMemo = readMemo {
+            delegate?.updateMemo(memo: readMemo, title: title, content: content)
+        }else {
+            delegate?.saveMemo(title: title, content: content)
+        }
+    }
+    
+    
     @objc func shareBarButtonTapped() {
         let activityViewController = UIActivityViewController(activityItems: ["공유할 문자열"], applicationActivities: [])
         transition(activityViewController, transitionStyle: .present)
@@ -73,6 +105,7 @@ class WriteMemoViewController: BaseViewController {
     
     @objc func finishButtonTapped() {
         currentViewStatus = .read
+        saveMemo()
     }
 }
 

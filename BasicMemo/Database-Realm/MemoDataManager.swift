@@ -58,7 +58,7 @@ struct MemoDataManager {
     
     
     // Create(add)
-    func write(_ memo: Memo) throws {
+    func create(_ memo: Memo) throws {
         do {
             try localRealm.write {
                 localRealm.add(memo)
