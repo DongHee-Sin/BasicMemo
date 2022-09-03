@@ -165,6 +165,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         
         if tableView == memoListView.tableView {
             guard memoManager.pinMemoCount > 0 || section != 0 else { return nil }
+            guard memoManager.memoCount > 0 || section != 1 else { return nil }
             header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
         }else {
             header.headerTitle.text = "\(memoManager.searchResultCount)개 찾음"
