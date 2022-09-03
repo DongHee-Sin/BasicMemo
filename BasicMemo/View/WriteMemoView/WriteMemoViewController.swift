@@ -23,6 +23,12 @@ enum WriteViewControllerStatus {
 }
 
 
+enum BackButtonTitle: String {
+    case 메모
+    case 검색
+}
+
+
 final class WriteMemoViewController: BaseViewController {
 
     // MARK: - Propertys
@@ -33,6 +39,8 @@ final class WriteMemoViewController: BaseViewController {
     var currentViewStatus: WriteViewControllerStatus? {
         didSet { viewStatusDidChanged() }
     }
+    
+    var backButtonTitle: BackButtonTitle = .메모
     
     private lazy var shareBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareBarButtonTapped))
     
@@ -74,6 +82,8 @@ final class WriteMemoViewController: BaseViewController {
     
     override func setNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
+        
+        navigationController?.navigationBar.topItem?.title = backButtonTitle.rawValue
     }
     
     

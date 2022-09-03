@@ -228,7 +228,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             }
         })
         pin.backgroundColor = .systemOrange
-        pin.image = UIImage(systemName: "pin.fill")
+        pin.image = dataToUpdate?.isSetPin ?? false ? UIImage(systemName: "pin.slash.fill") : UIImage(systemName: "pin.fill")
         
         return UISwipeActionsConfiguration(actions: [pin])
     }
@@ -264,15 +264,16 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Select Cell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = WriteMemoViewController()
         var selectedMemo: Memo?
 
         if tableView == memoListView.tableView {
             selectedMemo = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
         }else {
             selectedMemo = memoManager.getSearchResult(at: indexPath.row)
+            vc.backButtonTitle = .검색
         }
         
-        let vc = WriteMemoViewController()
         vc.readMemo = selectedMemo
         vc.delegate = self
         vc.currentViewStatus = .read
