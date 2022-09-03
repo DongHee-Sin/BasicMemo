@@ -95,15 +95,11 @@ final class MemoListViewController: BaseViewController {
     
     func setRealmObserver() {
         memoManager.addObserver { [weak self] in
-            self?.memoListView.tableView.reloadData()
-            self?.resultTableViewController.tableView.reloadData()
+            guard let self = self else { return }
+            self.memoListView.tableView.reloadData()
+            self.resultTableViewController.tableView.reloadData()
+            self.navigationItem.title = "\(self.memoManager.totalMemoCount)개의 메모"
         }
-    }
-    
-    
-    func reloadTableView() {
-        memoListView.tableView.reloadData()
-        resultTableViewController.tableView.reloadData()
     }
     
     
@@ -289,7 +285,6 @@ extension MemoListViewController: ManagingMemoDelegate {
         
         do {
             try memoManager.create(memo)
-            reloadTableView()
         }
         catch {
             showAlert(title: "메모 저장에 실패했습니다.")
@@ -304,7 +299,6 @@ extension MemoListViewController: ManagingMemoDelegate {
                 memo.content = content
                 memo.savedDate = Date()
             }
-            reloadTableView()
         }
         catch {
             showAlert(title: "메모 저장에 실패했습니다.")
@@ -315,6 +309,7 @@ extension MemoListViewController: ManagingMemoDelegate {
     func removeMemo(memo: Memo) {
         do {
             try memoManager.remove(memo: memo)
+            
         }
         catch {
             showAlert(title: "메모 삭제에 실패했습니다.")
