@@ -8,10 +8,12 @@
 import UIKit
 
 
-protocol SaveMemoDelegate {
+protocol ManagingMemoDelegate {
     func saveMemo(title: String, content: String)
     
     func updateMemo(memo: Memo, title: String, content: String)
+    
+    func removeMemo(memo: Memo)
 }
 
 
@@ -26,7 +28,7 @@ final class WriteMemoViewController: BaseViewController {
     // MARK: - Propertys
     var readMemo: Memo?
     
-    var delegate: SaveMemoDelegate?
+    var delegate: ManagingMemoDelegate?
     
     var currentViewStatus: WriteViewControllerStatus? {
         didSet { viewStatusDidChanged() }
@@ -44,8 +46,18 @@ final class WriteMemoViewController: BaseViewController {
         self.view = writeView
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if currentViewStatus == .write {
+            saveMemo()
+        }
     }
     
     
@@ -85,6 +97,13 @@ final class WriteMemoViewController: BaseViewController {
     
     
     func saveMemo() {
+        guard writeView.textView.text != "" else {
+            if let readMemo = readMemo {
+                delegate?.removeMemo(memo: readMemo)
+            }
+            return
+        }
+        
         var separatedByEnter = writeView.textView.text.components(separatedBy: "\n")
         let title = separatedByEnter.removeFirst()
         let content = separatedByEnter.joined(separator: "\n")

@@ -282,7 +282,7 @@ extension MemoListViewController: UISearchResultsUpdating {
 
 
 // MARK: - Save Memo Delegate
-extension MemoListViewController: SaveMemoDelegate {
+extension MemoListViewController: ManagingMemoDelegate {
     
     func saveMemo(title: String, content: String) {
         let memo = Memo(title: title, content: content)
@@ -308,6 +308,16 @@ extension MemoListViewController: SaveMemoDelegate {
         }
         catch {
             showAlert(title: "메모 저장에 실패했습니다.")
+        }
+    }
+    
+    
+    func removeMemo(memo: Memo) {
+        do {
+            try memoManager.remove(memo: memo)
+        }
+        catch {
+            showAlert(title: "메모 삭제에 실패했습니다.")
         }
     }
 }
