@@ -10,17 +10,17 @@ import UIKit
 final class MemoListViewController: BaseViewController {
 
     // MARK: - Propertys
-    var memoManager = MemoDataManager()
+    private var memoManager = MemoDataManager()
     
-    let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
+    private let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
     
-    var searchKeyword: String = ""
+    private var searchKeyword: String = ""
     
     
     
     
     // MARK: - LifeCycle
-    let memoListView = MemoListView()
+    private let memoListView = MemoListView()
     override func loadView() {
         self.view = memoListView
     }
@@ -34,11 +34,7 @@ final class MemoListViewController: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !UserDefaults.standard.bool(forKey: "PopUp") {
-            let popUpVC = PopUpViewController()
-            popUpVC.view.backgroundColor = .black.withAlphaComponent(0.5)
-            transition(popUpVC, transitionStyle: .presentOverFullScreen)
-        }
+        presentPopUp()
     }
     
     
@@ -61,7 +57,7 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    func setNavigationBarButtonItem() {
+    private func setNavigationBarButtonItem() {
         let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(barButtonTapped))
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(barButtonTapped))
         
@@ -70,7 +66,7 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    func setToolBarItem() {
+    private func setToolBarItem() {
         self.navigationController?.isToolbarHidden = false
         
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -81,7 +77,7 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    func setSearchController() {
+    private func setSearchController() {
         let searchController = UISearchController(searchResultsController: resultTableViewController)
         searchController.searchBar.placeholder = "검색"
         
@@ -97,7 +93,7 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    func setTableView() {
+    private func setTableView() {
         memoListView.tableView.delegate = self
         memoListView.tableView.dataSource = self
         memoListView.tableView.register(MemoListTableViewCell.self, forCellReuseIdentifier: MemoListTableViewCell.identifier)
@@ -105,7 +101,7 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    func setRealmObserver() {
+    private func setRealmObserver() {
         memoManager.addObserver { [weak self] in
             guard let self = self else { return }
             self.memoListView.tableView.reloadData()
@@ -115,10 +111,19 @@ final class MemoListViewController: BaseViewController {
     }
     
     
-    @objc func barButtonTapped() { }
+    private func presentPopUp() {
+        if !UserDefaults.standard.bool(forKey: "PopUp") {
+            let popUpVC = PopUpViewController()
+            popUpVC.view.backgroundColor = .black.withAlphaComponent(0.5)
+            transition(popUpVC, transitionStyle: .presentOverFullScreen)
+        }
+    }
     
     
-    @objc func writeButtonTapped() {
+    @objc private func barButtonTapped() { }
+    
+    
+    @objc private func writeButtonTapped() {
         let vc = WriteMemoViewController()
         vc.currentViewStatus = .write
         vc.delegate = self

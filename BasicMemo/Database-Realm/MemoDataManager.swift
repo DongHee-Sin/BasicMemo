@@ -22,9 +22,9 @@ struct MemoDataManager {
     private let localRealm = try! Realm()
     
     // Database Table
-    var totalMemoList: Results<Memo>
-    var memoList: Results<Memo>
-    var pinMemoList: Results<Memo>
+    private var totalMemoList: Results<Memo>
+    private var memoList: Results<Memo>
+    private var pinMemoList: Results<Memo>
     
     var totalMemoCount: Int { memoCount + pinMemoCount }
     var memoCount: Int { memoList.count }
@@ -35,7 +35,7 @@ struct MemoDataManager {
     
     
     // SearchController
-    var searchResultList: Results<Memo>?
+    private var searchResultList: Results<Memo>?
     var searchResultCount: Int { searchResultList?.count ?? 0 }
     
     

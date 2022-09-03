@@ -10,7 +10,7 @@ import UIKit
 class MemoListTableViewCell: UITableViewCell {
 
     // MARK: - Propertys
-    let verticalStackView: UIStackView = {
+    private let verticalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = 4
@@ -18,7 +18,7 @@ class MemoListTableViewCell: UITableViewCell {
         return view
     }()
     
-    let horizontalStackView: UIStackView = {
+    private let horizontalStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.distribution = .fill
@@ -66,7 +66,7 @@ class MemoListTableViewCell: UITableViewCell {
     
     
     // MARK: - Methdos
-    func configureUI() {
+    private func configureUI() {
         self.addSubview(verticalStackView)
         
         [titleLabel, horizontalStackView].forEach {
@@ -81,7 +81,7 @@ class MemoListTableViewCell: UITableViewCell {
     }
     
     
-    func setConstraint() {
+    private func setConstraint() {
         
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         

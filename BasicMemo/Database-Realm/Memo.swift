@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 
-class Memo: Object {
+final class Memo: Object {
     @Persisted var title: String
     @Persisted var content: String?
     @Persisted var savedDate: Date

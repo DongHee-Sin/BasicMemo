@@ -35,6 +35,7 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     private lazy var shareBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareBarButtonTapped))
+    
     private lazy var finishBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped))
     
     
@@ -76,7 +77,14 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
-    func viewStatusDidChanged() {
+    private func updateTextView() {
+        guard let memo = readMemo, currentViewStatus == .read else { return }
+        
+        writeView.textView.text = "\(memo.title)\n\(memo.content ?? "")"
+    }
+    
+    
+    private func viewStatusDidChanged() {
         guard let currentViewStatus = currentViewStatus else { return }
         switch currentViewStatus {
         case .write :
@@ -89,14 +97,7 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
-    func updateTextView() {
-        guard let memo = readMemo, currentViewStatus == .read else { return }
-        
-        writeView.textView.text = "\(memo.title)\n\(memo.content ?? "")"
-    }
-    
-    
-    func saveMemo() {
+    private func saveMemo() {
         guard writeView.textView.text != "" else {
             if let readMemo = readMemo {
                 delegate?.removeMemo(memo: readMemo)
@@ -116,13 +117,13 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
-    @objc func shareBarButtonTapped() {
+    @objc private func shareBarButtonTapped() {
         let activityViewController = UIActivityViewController(activityItems: [writeView.textView.text], applicationActivities: [])
         transition(activityViewController, transitionStyle: .present)
     }
     
     
-    @objc func finishButtonTapped() {
+    @objc private func finishButtonTapped() {
         currentViewStatus = .read
         saveMemo()
     }

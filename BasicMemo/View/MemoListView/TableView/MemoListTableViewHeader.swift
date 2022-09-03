@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 
-class MemoListTableViewHeader: UITableViewHeaderFooterView {
+final class MemoListTableViewHeader: UITableViewHeaderFooterView {
 
     // MARK: - Propertys
     let headerTitle: UILabel = {
@@ -39,12 +39,12 @@ class MemoListTableViewHeader: UITableViewHeaderFooterView {
     
     
     // MARK: - Methods
-    func configureUI() {
+    private func configureUI() {
         self.addSubview(headerTitle)
     }
     
     
-    func setConstraint() {
+    private func setConstraint() {
         headerTitle.snp.makeConstraints { make in
             make.centerY.equalTo(self)
             make.leading.equalTo(self).offset(20)

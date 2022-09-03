@@ -7,10 +7,10 @@
 
 import UIKit
 
-class PopUpViewController: BaseViewController {
+final class PopUpViewController: BaseViewController {
 
     // MARK: - Life Cycle
-    let popUpView = PopUpView()
+    private let popUpView = PopUpView()
     override func loadView() {
         self.view = popUpView
     }
@@ -28,7 +28,7 @@ class PopUpViewController: BaseViewController {
     }
     
     
-    @objc func okButtonTapped() {
+    @objc private  func okButtonTapped() {
         UserDefaults.standard.set(true, forKey: "PopUp")
         dismiss(animated: true)
     }

@@ -8,17 +8,17 @@
 import UIKit
 
 
-class PopUpView: BaseView {
+final class PopUpView: BaseView {
     
     // MARK: - Propertys
-    let popUpView: UIView = {
+    private let popUpView: UIView = {
         let view = UIView()
         view.backgroundColor = .searchBarBackground
         view.layer.cornerRadius = 10
         return view
     }()
     
-    let welcomeTextLabel: UILabel = {
+    private let welcomeTextLabel: UILabel = {
         let view = UILabel()
         view.text = """
         처음 오셨군요!
