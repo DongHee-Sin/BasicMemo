@@ -32,6 +32,8 @@
 		D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */; };
 		D0BB249128BF3E0700DE0C66 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB249028BF3E0700DE0C66 /* BaseView.swift */; };
 		D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */; };
+		D0E1DDA528C352E0002DB37A /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1DDA428C352E0002DB37A /* PopUpViewController.swift */; };
+		D0E1DDA728C352E7002DB37A /* PopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1DDA628C352E7002DB37A /* PopUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D0BB249028BF3E0700DE0C66 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		D0BB249328BF3E4A00DE0C66 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		D0E1DDA428C352E0002DB37A /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		D0E1DDA628C352E7002DB37A /* PopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,7 @@
 		D08969D928BF2C31003F6A30 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D0E1DDA328C352CF002DB37A /* PopUpView */,
 				D054972328C0F76C00E2F986 /* SearchResultVC */,
 				D0BB248928BF3CAB00DE0C66 /* MemoListView */,
 				D00F027828C200CB0015398F /* WriteMemoView */,
@@ -206,6 +211,15 @@
 				D054972728C10E3700E2F986 /* String+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		D0E1DDA328C352CF002DB37A /* PopUpView */ = {
+			isa = PBXGroup;
+			children = (
+				D0E1DDA428C352E0002DB37A /* PopUpViewController.swift */,
+				D0E1DDA628C352E7002DB37A /* PopUpView.swift */,
+			);
+			path = PopUpView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E1DDA728C352E7002DB37A /* PopUpView.swift in Sources */,
 				D06FCFBB28BF9CF000BBE471 /* UIViewController+Extension.swift in Sources */,
 				D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */,
 				D00F027C28C2021F0015398F /* WriteView.swift in Sources */,
@@ -304,6 +319,7 @@
 				D06FCFB728BF7E6800BBE471 /* MemoListTableViewHeader.swift in Sources */,
 				D0BB248B28BF3CD100DE0C66 /* MemoListView.swift in Sources */,
 				D06FCFBE28BFB60500BBE471 /* Memo.swift in Sources */,
+				D0E1DDA528C352E0002DB37A /* PopUpViewController.swift in Sources */,
 				D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */,
 				D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */,
 				D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */,

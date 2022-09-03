@@ -117,7 +117,7 @@ final class WriteMemoViewController: BaseViewController {
     
     
     @objc func shareBarButtonTapped() {
-        let activityViewController = UIActivityViewController(activityItems: ["공유할 문자열"], applicationActivities: [])
+        let activityViewController = UIActivityViewController(activityItems: [writeView.textView.text], applicationActivities: [])
         transition(activityViewController, transitionStyle: .present)
     }
     

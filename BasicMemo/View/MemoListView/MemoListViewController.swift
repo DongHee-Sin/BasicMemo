@@ -25,8 +25,20 @@ final class MemoListViewController: BaseViewController {
         self.view = memoListView
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !UserDefaults.standard.bool(forKey: "PopUp") {
+            let popUpVC = PopUpViewController()
+            popUpVC.view.backgroundColor = .black.withAlphaComponent(0.5)
+            transition(popUpVC, transitionStyle: .presentOverFullScreen)
+        }
     }
     
     
