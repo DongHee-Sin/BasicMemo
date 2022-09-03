@@ -17,7 +17,13 @@ enum WriteViewControllerStatus {
 class WriteMemoViewController: BaseViewController {
 
     // MARK: - Propertys
-    var currentViewStatus: WriteViewControllerStatus = .write
+    var currentViewStatus: WriteViewControllerStatus? {
+        didSet { viewStatusDidChanged() }
+    }
+    
+    
+    let shareBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareBarButtonTapped))
+    let finishBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped))
     
     
     
@@ -37,24 +43,25 @@ class WriteMemoViewController: BaseViewController {
     
     // MARK: - Methods
     override func configure() {
-        if currentViewStatus == .write {
-            writeView.textView.becomeFirstResponder()
-        }else {
-            
-        }
+        writeView.textView.delegate = self
     }
     
     
     override func setNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
-        
-        var rightBarButtonItems: [UIBarButtonItem] = []
-        if currentViewStatus == .write {
-            rightBarButtonItems.append(UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(finishButtonTapped)))
+    }
+    
+    
+    func viewStatusDidChanged() {
+        guard let currentViewStatus = currentViewStatus else { return }
+        switch currentViewStatus {
+        case .write :
+            writeView.textView.becomeFirstResponder()
+            navigationItem.rightBarButtonItems = [finishBarButtonItem, shareBarButtonItem]
+        case .read :
+            writeView.textView.endEditing(true)
+            navigationItem.rightBarButtonItems = [shareBarButtonItem]
         }
-        rightBarButtonItems.append(UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(shareBarButtonTapped)))
-        
-        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
     
     
@@ -65,5 +72,17 @@ class WriteMemoViewController: BaseViewController {
     
     
     @objc func finishButtonTapped() {
+        currentViewStatus = .read
+    }
+}
+
+
+
+
+// MARK: - TextView Protocol
+extension WriteMemoViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if currentViewStatus == .read { currentViewStatus = .write }
     }
 }
