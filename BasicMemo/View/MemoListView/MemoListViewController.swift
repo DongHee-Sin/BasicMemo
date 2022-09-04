@@ -10,7 +10,7 @@ import UIKit
 final class MemoListViewController: BaseViewController {
 
     // MARK: - Propertys
-    private var memoManager = MemoDataManager()
+    private var memoRepository = MemoDataRepository()
     
     private let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
     
@@ -49,7 +49,7 @@ final class MemoListViewController: BaseViewController {
     
     
     override func setNavigationBar() {
-        navigationItem.title = "\(memoManager.totalMemoCount)개의 메모"
+        navigationItem.title = "\(memoRepository.totalMemoCount)개의 메모"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setNavigationBarButtonItem()
@@ -102,11 +102,11 @@ final class MemoListViewController: BaseViewController {
     
     
     private func setRealmObserver() {
-        memoManager.addObserver { [weak self] in
+        memoRepository.addObserver { [weak self] in
             guard let self = self else { return }
             self.memoListView.tableView.reloadData()
             self.resultTableViewController.tableView.reloadData()
-            self.navigationItem.title = "\(self.memoManager.totalMemoCount)개의 메모"
+            self.navigationItem.title = "\(self.memoRepository.totalMemoCount)개의 메모"
         }
     }
     
@@ -139,19 +139,15 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Section / Rows
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == memoListView.tableView {
-            return 2
-        }else {
-            return 1
-        }
+        return tableView == memoListView.tableView ? 2 : 1
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == memoListView.tableView {
-            return section == 0 ? memoManager.pinMemoCount : memoManager.memoCount
+            return section == 0 ? memoRepository.pinMemoCount : memoRepository.memoCount
         }else {
-            return memoManager.searchResultCount
+            return memoRepository.searchResultCount
         }
     }
     
@@ -164,11 +160,11 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if tableView == memoListView.tableView {
-            guard memoManager.pinMemoCount > 0 || section != 0 else { return nil }
-            guard memoManager.memoCount > 0 || section != 1 else { return nil }
+            guard memoRepository.pinMemoCount > 0 || section != 0 else { return nil }
+            guard memoRepository.memoCount > 0 || section != 1 else { return nil }
             header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
         }else {
-            header.headerTitle.text = "\(memoManager.searchResultCount)개 찾음"
+            header.headerTitle.text = "\(memoRepository.searchResultCount)개 찾음"
         }
 
         return header
@@ -176,7 +172,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard memoManager.pinMemoCount > 0 || section != 0 else { return 0 }
+        guard memoRepository.pinMemoCount > 0 || section != 0 else { return 0 }
         
         return 60
     }
@@ -190,12 +186,12 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if tableView == memoListView.tableView {
-            let data = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+            let data = indexPath.section == 0 ? memoRepository.getPinMemo(at: indexPath.row) : memoRepository.getMemo(at: indexPath.row)
             if let data = data {
                 cell.updateCell(data: data)
             }
         }else {
-            let data = memoManager.getSearchResult(at: indexPath.row)
+            let data = memoRepository.getSearchResult(at: indexPath.row)
             if let data = data {
                 cell.updateCell(data: data, keyword: searchKeyword)
             }
@@ -216,14 +212,14 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         let dataToUpdate: Memo?
         
         if tableView == memoListView.tableView {
-            dataToUpdate = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+            dataToUpdate = indexPath.section == 0 ? memoRepository.getPinMemo(at: indexPath.row) : memoRepository.getMemo(at: indexPath.row)
         }else {
-            dataToUpdate = memoManager.getSearchResult(at: indexPath.row)
+            dataToUpdate = memoRepository.getSearchResult(at: indexPath.row)
         }
         
         let pin = UIContextualAction(style: .normal, title: nil, handler: { [weak self] action, view, completion in
             guard let self = self else { return }
-            if !self.memoManager.memoPinToggle(memo: dataToUpdate ?? Memo()) {
+            if !self.memoRepository.memoPinToggle(memo: dataToUpdate ?? Memo()) {
                 self.showAlert(title: "메모는 최대 5개까지 고정시킬 수 있습니다.")
             }
         })
@@ -239,16 +235,16 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         let dataToDelete: Memo?
         
         if tableView == memoListView.tableView {
-            dataToDelete = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+            dataToDelete = indexPath.section == 0 ? memoRepository.getPinMemo(at: indexPath.row) : memoRepository.getMemo(at: indexPath.row)
         }else {
-            dataToDelete = memoManager.getSearchResult(at: indexPath.row)
+            dataToDelete = memoRepository.getSearchResult(at: indexPath.row)
         }
         
         let delete = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
             guard let self = self else { return }
             self.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
                 do {
-                    try self.memoManager.remove(memo: dataToDelete ?? Memo())
+                    try self.memoRepository.remove(memo: dataToDelete ?? Memo())
                 }
                 catch {
                     self.showAlert(title: "데이터 삭제에 실패했습니다.")
@@ -268,9 +264,9 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         var selectedMemo: Memo?
 
         if tableView == memoListView.tableView {
-            selectedMemo = indexPath.section == 0 ? memoManager.getPinMemo(at: indexPath.row) : memoManager.getMemo(at: indexPath.row)
+            selectedMemo = indexPath.section == 0 ? memoRepository.getPinMemo(at: indexPath.row) : memoRepository.getMemo(at: indexPath.row)
         }else {
-            selectedMemo = memoManager.getSearchResult(at: indexPath.row)
+            selectedMemo = memoRepository.getSearchResult(at: indexPath.row)
             vc.backButtonTitle = .검색
         }
         
@@ -288,7 +284,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
 extension MemoListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         searchKeyword = searchController.searchBar.text ?? ""
-        memoManager.fetchSearchResult(searchWord: searchKeyword)
+        memoRepository.fetchSearchResult(searchWord: searchKeyword)
         resultTableViewController.tableView.reloadData()
     }
 }
@@ -303,7 +299,7 @@ extension MemoListViewController: ManagingMemoDelegate {
         let memo = Memo(title: title, content: content)
         
         do {
-            try memoManager.create(memo)
+            try memoRepository.create(memo)
         }
         catch {
             showAlert(title: "메모 저장에 실패했습니다.")
@@ -313,7 +309,7 @@ extension MemoListViewController: ManagingMemoDelegate {
     
     func updateMemo(memo: Memo, title: String, content: String) {
         do {
-            try memoManager.update(memo: memo) { memo in
+            try memoRepository.update(memo: memo) { memo in
                 memo.title = title
                 memo.content = content
                 memo.savedDate = Date()
@@ -327,7 +323,7 @@ extension MemoListViewController: ManagingMemoDelegate {
     
     func removeMemo(memo: Memo) {
         do {
-            try memoManager.remove(memo: memo)
+            try memoRepository.remove(memo: memo)
             
         }
         catch {

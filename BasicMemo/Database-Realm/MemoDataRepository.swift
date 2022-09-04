@@ -9,6 +9,24 @@ import Foundation
 import RealmSwift
 
 
+protocol MemoDataRepositoryType {
+    func create(_ memo: Memo) throws
+    
+    func getMemo(at index: Int) -> Memo?
+    func getPinMemo(at index: Int) -> Memo?
+    
+    func update(memo: Memo, completion: (Memo) -> Void) throws
+    mutating func memoPinToggle(memo: Memo) -> Bool
+    
+    func remove(memo: Memo) throws
+    
+    mutating func addObserver(completion: @escaping () -> Void)
+    
+    mutating func fetchSearchResult(searchWord: String)
+    func getSearchResult(at index: Int) -> Memo?
+}
+
+
 enum RealmError: Error {
     case writeError
     case updateError
@@ -16,8 +34,7 @@ enum RealmError: Error {
 }
 
 
-
-struct MemoDataManager {
+struct MemoDataRepository: MemoDataRepositoryType {
     
     private let localRealm = try! Realm()
     

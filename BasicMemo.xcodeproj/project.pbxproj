@@ -18,7 +18,7 @@
 		D06FCFB928BF99C100BBE471 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB828BF99C100BBE471 /* Int+Extension.swift */; };
 		D06FCFBB28BF9CF000BBE471 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */; };
 		D06FCFBE28BFB60500BBE471 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBD28BFB60500BBE471 /* Memo.swift */; };
-		D06FCFC028BFB79700BBE471 /* MemoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBF28BFB79700BBE471 /* MemoDataManager.swift */; };
+		D06FCFC028BFB79700BBE471 /* MemoDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBF28BFB79700BBE471 /* MemoDataRepository.swift */; };
 		D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969C128BF281F003F6A30 /* AppDelegate.swift */; };
 		D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969C328BF281F003F6A30 /* SceneDelegate.swift */; };
 		D08969CB28BF2820003F6A30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08969CA28BF2820003F6A30 /* Assets.xcassets */; };
@@ -48,7 +48,7 @@
 		D06FCFB828BF99C100BBE471 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		D06FCFBD28BFB60500BBE471 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
-		D06FCFBF28BFB79700BBE471 /* MemoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDataManager.swift; sourceTree = "<group>"; };
+		D06FCFBF28BFB79700BBE471 /* MemoDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDataRepository.swift; sourceTree = "<group>"; };
 		D08969BE28BF281F003F6A30 /* BasicMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08969C128BF281F003F6A30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D08969C328BF281F003F6A30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,12 +88,12 @@
 			path = WriteMemoView;
 			sourceTree = "<group>";
 		};
-		D054972328C0F76C00E2F986 /* SearchResultVC */ = {
+		D054972328C0F76C00E2F986 /* SearchResultView */ = {
 			isa = PBXGroup;
 			children = (
 				D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */,
 			);
-			path = SearchResultVC;
+			path = SearchResultView;
 			sourceTree = "<group>";
 		};
 		D054972628C0FF7900E2F986 /* TableView */ = {
@@ -117,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				D06FCFBD28BFB60500BBE471 /* Memo.swift */,
-				D06FCFBF28BFB79700BBE471 /* MemoDataManager.swift */,
+				D06FCFBF28BFB79700BBE471 /* MemoDataRepository.swift */,
 			);
 			path = "Database-Realm";
 			sourceTree = "<group>";
@@ -165,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E1DDA328C352CF002DB37A /* PopUpView */,
-				D054972328C0F76C00E2F986 /* SearchResultVC */,
+				D054972328C0F76C00E2F986 /* SearchResultView */,
 				D0BB248928BF3CAB00DE0C66 /* MemoListView */,
 				D00F027828C200CB0015398F /* WriteMemoView */,
 			);
@@ -323,7 +323,7 @@
 				D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */,
 				D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */,
 				D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */,
-				D06FCFC028BFB79700BBE471 /* MemoDataManager.swift in Sources */,
+				D06FCFC028BFB79700BBE471 /* MemoDataRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
