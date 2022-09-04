@@ -29,7 +29,7 @@ final class PopUpView: BaseView {
         """
         view.numberOfLines = 0
         view.textColor = .label
-        view.font = .boldSystemFont(ofSize: 20)
+        view.font = .popUpFont
         return view
     }()
     
@@ -37,7 +37,7 @@ final class PopUpView: BaseView {
         let view = UIButton()
         view.backgroundColor = .systemYellow
         view.setTitle("확인", for: .normal)
-        view.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        view.titleLabel?.font = .popUpFont
         view.layer.cornerRadius = 10
         return view
     }()

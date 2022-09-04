@@ -27,21 +27,21 @@ class MemoListTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let view = UILabel()
-        view.font = .boldSystemFont(ofSize: 17)
+        view.font = .cellTitleFont
         view.textColor = .label
         return view
     }()
     
     let dateLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 13)
+        view.font = .cellContentFont
         view.textColor = .subLabel
         return view
     }()
     
     let contentLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 13)
+        view.font = .cellContentFont
         view.textColor = .subLabel
         return view
     }()

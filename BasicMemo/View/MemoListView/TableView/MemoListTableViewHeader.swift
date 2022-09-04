@@ -14,7 +14,7 @@ final class MemoListTableViewHeader: UITableViewHeaderFooterView {
     // MARK: - Propertys
     let headerTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 24, weight: .heavy)
+        view.font = .sectionHeaderFont
         view.textColor = .label
         return view
     }()

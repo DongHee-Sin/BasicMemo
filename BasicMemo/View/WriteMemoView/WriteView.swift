@@ -14,7 +14,7 @@ class WriteView: BaseView {
     // MARK: - Propertys
     let textView: UITextView = {
         let view = UITextView()
-        view.font = .boldSystemFont(ofSize: 15)
+        view.font = .textViewFont
         view.textColor = .label
         view.textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         view.backgroundColor = .clear
