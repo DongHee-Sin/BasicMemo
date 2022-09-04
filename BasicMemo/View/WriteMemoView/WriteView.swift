@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 
-class WriteView: BaseView {
+final class WriteView: BaseView {
     
     // MARK: - Propertys
     let textView: UITextView = {

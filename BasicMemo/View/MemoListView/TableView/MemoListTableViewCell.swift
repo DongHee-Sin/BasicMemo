@@ -101,6 +101,6 @@ class MemoListTableViewCell: UITableViewCell {
             contentLabel.text = data.content
         }
         
-        dateLabel.text = data.savedDate.format + "  "
+        dateLabel.text = DateFormatManager.shared.format(date: data.savedDate)
     }
 }

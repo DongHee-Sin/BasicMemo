@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D00AC45F28C4EDF4006BC9F9 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AC45E28C4EDF4006BC9F9 /* UIFont+Extension.swift */; };
+		D00AC46228C4F96C006BC9F9 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00AC46128C4F96C006BC9F9 /* DateFormatManager.swift */; };
 		D00F027A28C200F50015398F /* WriteMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F027928C200F40015398F /* WriteMemoViewController.swift */; };
 		D00F027C28C2021F0015398F /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F027B28C2021F0015398F /* WriteView.swift */; };
-		D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */; };
 		D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */; };
 		D054972828C10E3700E2F986 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054972728C10E3700E2F986 /* String+Extension.swift */; };
 		D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */; };
@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		D00AC45E28C4EDF4006BC9F9 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		D00AC46128C4F96C006BC9F9 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		D00F027928C200F40015398F /* WriteMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteMemoViewController.swift; sourceTree = "<group>"; };
 		D00F027B28C2021F0015398F /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
-		D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		D054972428C0F79700E2F986 /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		D054972728C10E3700E2F986 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D06FCFB028BF758200BBE471 /* MemoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewCell.swift; sourceTree = "<group>"; };
@@ -85,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D00AC46028C4F950006BC9F9 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D00AC46128C4F96C006BC9F9 /* DateFormatManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		D00F027828C200CB0015398F /* WriteMemoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +158,7 @@
 			children = (
 				D08969D528BF28A1003F6A30 /* App */,
 				D0BB248C28BF3D0000DE0C66 /* Utility */,
+				D00AC46028C4F950006BC9F9 /* Manager */,
 				D06FCFBC28BFAE0A00BBE471 /* Database-Realm */,
 				D08969D928BF2C31003F6A30 /* View */,
 				D08969CA28BF2820003F6A30 /* Assets.xcassets */,
@@ -216,7 +225,6 @@
 				D00AC45E28C4EDF4006BC9F9 /* UIFont+Extension.swift */,
 				D06FCFB828BF99C100BBE471 /* Int+Extension.swift */,
 				D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */,
-				D02008DD28C0A24700F7CEE4 /* Date+Extension.swift */,
 				D054972728C10E3700E2F986 /* String+Extension.swift */,
 			);
 			path = Extension;
@@ -320,9 +328,9 @@
 				D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */,
 				D00AC45F28C4EDF4006BC9F9 /* UIFont+Extension.swift in Sources */,
 				D00F027A28C200F50015398F /* WriteMemoViewController.swift in Sources */,
+				D00AC46228C4F96C006BC9F9 /* DateFormatManager.swift in Sources */,
 				D07769DA28C4A1FF00D69A10 /* WriteViewModel.swift in Sources */,
 				D06FCFB128BF758200BBE471 /* MemoListTableViewCell.swift in Sources */,
-				D02008DE28C0A24700F7CEE4 /* Date+Extension.swift in Sources */,
 				D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */,
 				D06FCFB928BF99C100BBE471 /* Int+Extension.swift in Sources */,
 				D054972828C10E3700E2F986 /* String+Extension.swift in Sources */,
