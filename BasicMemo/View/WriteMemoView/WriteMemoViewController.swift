@@ -32,6 +32,8 @@ enum BackButtonTitle: String {
 final class WriteMemoViewController: BaseViewController {
 
     // MARK: - Propertys
+    var viewModel = WriteViewModel()
+    
     var readMemo: Memo?
     
     var delegate: ManagingMemoDelegate?
@@ -108,21 +110,26 @@ final class WriteMemoViewController: BaseViewController {
     
     
     private func saveMemo() {
-        guard writeView.textView.text != "" else {
+        let inputText = writeView.textView.text ?? ""
+        
+        guard inputText != "" else {
             if let readMemo = readMemo {
                 delegate?.removeMemo(memo: readMemo)
             }
             return
         }
         
-        var separatedByEnter = writeView.textView.text.components(separatedBy: "\n")
-        let title = separatedByEnter.removeFirst()
-        let content = separatedByEnter.joined(separator: "\n")
+        let result = viewModel.separatByEnter(text: inputText)
         
         if let readMemo = readMemo {
-            delegate?.updateMemo(memo: readMemo, title: title, content: content)
+            delegate?.updateMemo(memo: readMemo, title: result.title, content: result.content)
         }else {
-            delegate?.saveMemo(title: title, content: content)
+            do {
+                try viewModel.saveMemo(text: inputText)
+            }
+            catch {
+                showErrorAlert(error: error)
+            }
         }
     }
     
