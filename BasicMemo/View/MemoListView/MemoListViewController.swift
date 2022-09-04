@@ -127,7 +127,6 @@ final class MemoListViewController: BaseViewController {
     @objc private func writeButtonTapped() {
         let vc = WriteMemoViewController()
         vc.currentViewStatus = .write
-        vc.delegate = self
         transition(vc, transitionStyle: .push)
     }
 }
@@ -259,7 +258,6 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         vc.readMemo = selectedMemo
-        vc.delegate = self
         vc.currentViewStatus = .read
         transition(vc, transitionStyle: .push)
     }
@@ -273,48 +271,5 @@ extension MemoListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         viewModel.searchKeyword = searchController.searchBar.text ?? ""
         resultTableViewController.tableView.reloadData()
-    }
-}
-
-
-
-
-// MARK: - Save Memo Delegate
-extension MemoListViewController: ManagingMemoDelegate {
-    
-    func saveMemo(title: String, content: String) {
-        let memo = Memo(title: title, content: content)
-        
-        do {
-            try repository.create(memo)
-        }
-        catch {
-            showAlert(title: "메모 저장에 실패했습니다.")
-        }
-    }
-    
-    
-    func updateMemo(memo: Memo, title: String, content: String) {
-        do {
-            try repository.update(memo: memo) { memo in
-                memo.title = title
-                memo.content = content
-                memo.savedDate = Date()
-            }
-        }
-        catch {
-            showAlert(title: "메모 저장에 실패했습니다.")
-        }
-    }
-    
-    
-    func removeMemo(memo: Memo) {
-        do {
-            try repository.remove(memo: memo)
-            
-        }
-        catch {
-            showAlert(title: "메모 삭제에 실패했습니다.")
-        }
     }
 }

@@ -8,15 +8,6 @@
 import UIKit
 
 
-protocol ManagingMemoDelegate {
-    func saveMemo(title: String, content: String)
-    
-    func updateMemo(memo: Memo, title: String, content: String)
-    
-    func removeMemo(memo: Memo)
-}
-
-
 enum WriteViewControllerStatus {
     case write
     case read
@@ -35,8 +26,6 @@ final class WriteMemoViewController: BaseViewController {
     var viewModel = WriteViewModel()
     
     var readMemo: Memo?
-    
-    var delegate: ManagingMemoDelegate?
     
     var currentViewStatus: WriteViewControllerStatus? {
         didSet { viewStatusDidChanged() }
@@ -67,7 +56,7 @@ final class WriteMemoViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         if currentViewStatus == .write {
-            saveMemo()
+            processMemo()
         }
     }
     
@@ -109,27 +98,14 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
-    private func saveMemo() {
+    private func processMemo() {
         let inputText = writeView.textView.text ?? ""
         
-        guard inputText != "" else {
-            if let readMemo = readMemo {
-                delegate?.removeMemo(memo: readMemo)
-            }
-            return
+        do {
+            try viewModel.processMemo(text: inputText, readMemo: readMemo)
         }
-        
-        let result = viewModel.separatByEnter(text: inputText)
-        
-        if let readMemo = readMemo {
-            delegate?.updateMemo(memo: readMemo, title: result.title, content: result.content)
-        }else {
-            do {
-                try viewModel.saveMemo(text: inputText)
-            }
-            catch {
-                showErrorAlert(error: error)
-            }
+        catch {
+            showErrorAlert(error: error)
         }
     }
     
@@ -142,7 +118,7 @@ final class WriteMemoViewController: BaseViewController {
     
     @objc private func finishButtonTapped() {
         currentViewStatus = .read
-        saveMemo()
+        processMemo()
     }
 }
 
