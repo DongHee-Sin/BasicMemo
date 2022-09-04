@@ -99,10 +99,8 @@ final class WriteMemoViewController: BaseViewController {
     
     
     private func processMemo() {
-        let inputText = writeView.textView.text ?? ""
-        
         do {
-            try viewModel.processMemo(text: inputText, readMemo: readMemo)
+            try viewModel.processMemo(readMemo: readMemo)
         }
         catch {
             showErrorAlert(error: error)
@@ -130,5 +128,12 @@ extension WriteMemoViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if currentViewStatus == .read { currentViewStatus = .write }
+    }
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.inputText = textView.text ?? ""
+        
+        //textView.attributedText = viewModel.applyTextViewStyle()
     }
 }
