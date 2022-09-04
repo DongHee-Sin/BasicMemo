@@ -19,6 +19,7 @@
 		D06FCFBB28BF9CF000BBE471 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */; };
 		D06FCFBE28BFB60500BBE471 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBD28BFB60500BBE471 /* Memo.swift */; };
 		D06FCFC028BFB79700BBE471 /* MemoDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06FCFBF28BFB79700BBE471 /* MemoDataRepository.swift */; };
+		D07769D828C47DEC00D69A10 /* MemoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07769D728C47DEC00D69A10 /* MemoListViewModel.swift */; };
 		D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969C128BF281F003F6A30 /* AppDelegate.swift */; };
 		D08969C428BF281F003F6A30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969C328BF281F003F6A30 /* SceneDelegate.swift */; };
 		D08969CB28BF2820003F6A30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08969CA28BF2820003F6A30 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		D06FCFBA28BF9CF000BBE471 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		D06FCFBD28BFB60500BBE471 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		D06FCFBF28BFB79700BBE471 /* MemoDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDataRepository.swift; sourceTree = "<group>"; };
+		D07769D728C47DEC00D69A10 /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		D08969BE28BF281F003F6A30 /* BasicMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasicMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08969C128BF281F003F6A30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D08969C328BF281F003F6A30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */,
 				D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */,
+				D07769D728C47DEC00D69A10 /* MemoListViewModel.swift */,
 				D054972628C0FF7900E2F986 /* TableView */,
 			);
 			path = MemoListView;
@@ -323,6 +326,7 @@
 				D054972528C0F79700E2F986 /* SearchResultTableViewController.swift in Sources */,
 				D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */,
 				D06FCFB528BF768100BBE471 /* ReusableProtocol.swift in Sources */,
+				D07769D828C47DEC00D69A10 /* MemoListViewModel.swift in Sources */,
 				D06FCFC028BFB79700BBE471 /* MemoDataRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
