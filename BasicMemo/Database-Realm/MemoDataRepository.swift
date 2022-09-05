@@ -158,7 +158,7 @@ struct MemoDataRepository: MemoDataRepositoryType {
     // SearchController
     mutating func fetchSearchResult(searchWord: String) {
         searchResultList = totalMemoList.where {
-            $0.title.contains(searchWord) || $0.content.contains(searchWord)
+            $0.title.contains(searchWord, options: .caseInsensitive) || $0.content.contains(searchWord, options: .caseInsensitive)
         }
     }
     

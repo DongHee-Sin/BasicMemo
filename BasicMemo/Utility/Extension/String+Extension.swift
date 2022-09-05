@@ -12,7 +12,7 @@ extension String {
     
     func changeColorSpecificText(text: String) -> NSMutableAttributedString {
         
-        let range = (self as NSString).range(of: text)
+        let range = (self as NSString).range(of: text, options: .caseInsensitive)
 
         let mutableAttributedString = NSMutableAttributedString.init(string: self)
         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemOrange, range: range)
