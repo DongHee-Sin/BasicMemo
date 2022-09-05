@@ -15,28 +15,44 @@ struct WriteViewModel {
     
     var inputText: String = ""
     
+    private let fontSize = UIFont.textViewFont.pointSize
+    private lazy var lineHeight = fontSize * 1.6
+    
+    private lazy var style: NSMutableParagraphStyle = {
+        let style = NSMutableParagraphStyle()
+        style.maximumLineHeight = lineHeight
+        style.minimumLineHeight = lineHeight
+        return style
+    }()
+    
+    private let titleAttribute: [NSAttributedString.Key: Any] = [
+        .foregroundColor: UIColor.label,
+        .font: UIFont.textViewTitleFont
+    ]
+    
+    private lazy var textViewAttribute: [NSAttributedString.Key: Any] = [
+        .paragraphStyle: style,
+        .foregroundColor: UIColor.label,
+        .font: UIFont.textViewFont,
+        .baselineOffset: (lineHeight - fontSize) / 4
+    ]
+    
     
     
     
     // MARK: - Methods
-    func applyTextViewStyle() -> NSMutableAttributedString {
-        let titleAttribute: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.label,
-            .font: UIFont.boldSystemFont(ofSize: 20)
-        ]
-        let contentAttribute: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.label,
-            .font: UIFont.systemFont(ofSize: 15)
-        ]
+    mutating func applyTextViewStyle() -> NSAttributedString {
+        let titleText = separatByEnter().title
+        let titleRange = (titleText as NSString).range(of: titleText)
         
-        let result = separatByEnter()
+        let result = NSMutableAttributedString(
+            string: inputText,
+            attributes: textViewAttribute
+        )
         
-        let titleString = NSMutableAttributedString(string: result.title, attributes: titleAttribute)
-        let contentString = NSMutableAttributedString(string: result.content, attributes: contentAttribute)
+        result.setAttributes(titleAttribute, range: titleRange)
         
-        titleString.append(contentString)
-        
-        return titleString
+        return result
     }
     
     

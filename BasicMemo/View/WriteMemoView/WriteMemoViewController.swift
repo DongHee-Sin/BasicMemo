@@ -134,6 +134,6 @@ extension WriteMemoViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.inputText = textView.text ?? ""
         
-        //textView.attributedText = viewModel.applyTextViewStyle()
+        textView.attributedText = viewModel.applyTextViewStyle()
     }
 }

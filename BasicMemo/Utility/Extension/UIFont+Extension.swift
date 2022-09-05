@@ -18,6 +18,8 @@ extension UIFont {
     
     static var textViewFont: UIFont { .boldSystemFont(ofSize: 15) }
     
+    static var textViewTitleFont: UIFont { .boldSystemFont(ofSize: 25) }
+    
     static var popUpFont: UIFont { .boldSystemFont(ofSize: 20) }
     
 }
