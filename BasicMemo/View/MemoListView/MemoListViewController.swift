@@ -10,7 +10,6 @@ import UIKit
 final class MemoListViewController: BaseViewController {
 
     // MARK: - Propertys
-    private var repository = MemoDataRepository()
     private var viewModel = MemoListViewModel()
     
     private let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)

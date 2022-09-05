@@ -11,14 +11,14 @@ import RealmSwift
 
 final class Memo: Object {
     @Persisted var title: String
-    @Persisted var content: String?
+    @Persisted var content: String
     @Persisted var savedDate: Date
     @Persisted var isSetPin: Bool
 
     
     @Persisted(primaryKey: true) var objectId: ObjectId
     
-    convenience init(title: String, content: String? = nil) {
+    convenience init(title: String, content: String) {
         self.init()
         self.title = title
         self.content = content

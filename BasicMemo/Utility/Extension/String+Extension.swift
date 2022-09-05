@@ -10,6 +10,26 @@ import UIKit
 
 extension String {
     
+    var setMemoCellTitle: String {
+        if self.trimmingCharacters(in: .whitespaces) != "" {
+            return self
+        }else {
+            return "새로운 메모"
+        }
+    }
+    
+    
+    
+    var setMemoCellContent: String {
+        if self.trimmingCharacters(in: .whitespaces) != "" {
+            return self
+        }else {
+            return "추가 텍스트 없음"
+        }
+    }
+    
+    
+    
     func changeColorSpecificText(text: String) -> NSMutableAttributedString {
         
         let range = (self as NSString).range(of: text, options: .caseInsensitive)

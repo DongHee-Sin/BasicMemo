@@ -92,13 +92,13 @@ class MemoListTableViewCell: UITableViewCell {
     }
     
     
-    func updateCell(data: Memo, keyword: String? = nil) {
-        if let keyword = keyword {
+    func updateCell(data: Memo, keyword: String) {
+        if keyword != "" {
             titleLabel.attributedText = data.title.changeColorSpecificText(text: keyword)
-            contentLabel.attributedText = data.content?.changeColorSpecificText(text: keyword)
+            contentLabel.attributedText = data.content.changeColorSpecificText(text: keyword)
         }else {
-            titleLabel.text = data.title
-            contentLabel.text = data.content
+            titleLabel.text = data.title.setMemoCellTitle
+            contentLabel.text = data.content.setMemoCellContent
         }
         
         dateLabel.text = DateFormatManager.shared.format(date: data.savedDate)
