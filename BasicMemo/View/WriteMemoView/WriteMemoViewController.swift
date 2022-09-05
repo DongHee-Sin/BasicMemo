@@ -68,6 +68,8 @@ final class WriteMemoViewController: BaseViewController {
         writeView.textView.delegate = self
         
         updateTextView()
+        
+        setTextViewAttribute()
     }
     
     
@@ -108,6 +110,12 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
+    func setTextViewAttribute() {
+        viewModel.inputText = writeView.textView.text ?? ""
+        writeView.textView.attributedText = viewModel.applyTextViewStyle()
+    }
+    
+    
     @objc private func shareBarButtonTapped() {
         let activityViewController = UIActivityViewController(activityItems: [writeView.textView.text], applicationActivities: [])
         transition(activityViewController, transitionStyle: .present)
@@ -132,8 +140,6 @@ extension WriteMemoViewController: UITextViewDelegate {
     
     
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.inputText = textView.text ?? ""
-        
-        textView.attributedText = viewModel.applyTextViewStyle()
+        setTextViewAttribute()
     }
 }
