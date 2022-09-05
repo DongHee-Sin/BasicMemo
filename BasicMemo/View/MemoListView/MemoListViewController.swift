@@ -102,7 +102,7 @@ final class MemoListViewController: BaseViewController {
     
     
     private func setRealmObserver() {
-        repository.addObserver { [weak self] in
+        viewModel.addObserver { [weak self] in
             guard let self = self else { return }
             self.memoListView.tableView.reloadData()
             self.resultTableViewController.tableView.reloadData()
@@ -231,10 +231,12 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             guard let self = self else { return }
             self.showAlert(title: "정말 삭제하시겠어요??", buttonTitle: "삭제", cancelTitle: "취소") { _ in
                 do {
-                    try self.repository.remove(memo: dataToDelete ?? Memo())
+                    if let dataToDelete = dataToDelete {
+                        try self.viewModel.removeMemo(memo: dataToDelete)
+                    }
                 }
                 catch {
-                    self.showAlert(title: "데이터 삭제에 실패했습니다.")
+                    self.showErrorAlert(error: error)
                 }
             }
         }

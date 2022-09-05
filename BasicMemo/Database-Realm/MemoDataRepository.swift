@@ -35,7 +35,10 @@ enum RealmError: Error {
 }
 
 
-struct MemoDataRepository: MemoDataRepositoryType {
+final class MemoDataRepository: MemoDataRepositoryType {
+    
+    // MARK: - Propertys
+    static let shared = MemoDataRepository()
     
     private let localRealm = try! Realm()
     
@@ -58,8 +61,9 @@ struct MemoDataRepository: MemoDataRepositoryType {
     
     
     
-    // init
-    init() {
+    
+    // MARK: - Init
+    private init() {
         self.totalMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false)
         
         self.memoList = totalMemoList.where {
@@ -75,6 +79,8 @@ struct MemoDataRepository: MemoDataRepositoryType {
     
     
     
+    
+    // MARK: - Methods
     // Create(add)
     func create(_ memo: Memo) throws {
         do {
@@ -116,7 +122,7 @@ struct MemoDataRepository: MemoDataRepositoryType {
     }
     
     
-    mutating func memoPinToggle(memo: Memo) -> Bool {
+    func memoPinToggle(memo: Memo) -> Bool {
         guard pinMemoCount < 5 || memo.isSetPin else { return false }
         
         do {
@@ -147,7 +153,7 @@ struct MemoDataRepository: MemoDataRepositoryType {
     
     
     // Observer 달기
-    mutating func addObserver(completion: @escaping () -> Void) {
+    func addObserver(completion: @escaping () -> Void) {
         memoNotificationToken = totalMemoList.observe { _ in
             completion()
         }
@@ -156,7 +162,7 @@ struct MemoDataRepository: MemoDataRepositoryType {
     
     
     // SearchController
-    mutating func fetchSearchResult(searchWord: String) {
+    func fetchSearchResult(searchWord: String) {
         searchResultList = totalMemoList.where {
             $0.title.contains(searchWord, options: .caseInsensitive) || $0.content.contains(searchWord, options: .caseInsensitive)
         }

@@ -17,7 +17,7 @@ enum TableViewType {
 struct MemoListViewModel {
     
     // MARK: - Propertys
-    var repository = MemoDataRepository()
+    var repository = MemoDataRepository.shared
     
     var navigationTitle: String {
         return "\(repository.totalMemoCount)개의 메모"
@@ -112,5 +112,18 @@ struct MemoListViewModel {
         action.image = image
         
         return action
+    }
+    
+    
+    
+    
+    // MARK: - Database
+    func removeMemo(memo: Memo) throws {
+        try repository.remove(memo: memo)
+    }
+    
+    
+    func addObserver(completion: @escaping () -> Void) {
+        repository.addObserver(completion: completion)
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 struct WriteViewModel {
     
     // MARK: - Propertys
-    var repository = MemoDataRepository()
+    var repository = MemoDataRepository.shared
     
     var inputText: String = ""
     
