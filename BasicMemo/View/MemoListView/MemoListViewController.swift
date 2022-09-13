@@ -52,17 +52,7 @@ final class MemoListViewController: BaseViewController {
         navigationItem.title = viewModel.navigationTitle
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        setNavigationBarButtonItem()
         setToolBarItem()
-    }
-    
-    
-    private func setNavigationBarButtonItem() {
-        let leftBarButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(barButtonTapped))
-        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: #selector(barButtonTapped))
-        
-        navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.rightBarButtonItem = rightBarButton
     }
     
     
@@ -118,9 +108,6 @@ final class MemoListViewController: BaseViewController {
             transition(popUpVC, transitionStyle: .presentOverFullScreen)
         }
     }
-    
-    
-    @objc private func barButtonTapped() { }
     
     
     @objc private func writeButtonTapped() {
