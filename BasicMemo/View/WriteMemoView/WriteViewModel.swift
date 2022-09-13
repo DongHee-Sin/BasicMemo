@@ -80,6 +80,8 @@ struct WriteViewModel {
     
     
     private func createMemo() throws {
+        guard inputText != "" else { return }
+        
         let result = separatByEnter()
         let memo = Memo(title: result.title, content: result.content)
         
