@@ -54,8 +54,8 @@ struct MemoListViewModel {
         switch type {
         case .list:
             guard
-                repository.pinMemoCount > 0, section == 0 ||
-                repository.memoCount > 0
+                (repository.pinMemoCount > 0 && section == 0) ||
+                (repository.memoCount > 0 && section == 1)
             else { return nil }
             
             header.headerTitle.text = section == 0 ? "고정된 메모" : "메모"
@@ -70,8 +70,8 @@ struct MemoListViewModel {
     
     func heightForHeaderInSection(section: Int) -> CGFloat {
         guard
-            repository.pinMemoCount > 0, section == 0 ||
-            repository.memoCount > 0
+            (repository.pinMemoCount > 0 && section == 0) ||
+            (repository.memoCount > 0 && section == 1)
         else { return 0 }
         
         return 60
