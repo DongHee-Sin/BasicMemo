@@ -52,8 +52,8 @@ final class WriteMemoViewController: BaseViewController {
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
         if currentViewStatus == .write {
             processMemo()
@@ -83,7 +83,7 @@ final class WriteMemoViewController: BaseViewController {
     private func updateTextView() {
         guard let memo = readMemo, currentViewStatus == .read else { return }
         
-        writeView.textView.text = "\(memo.title)\n\(memo.content ?? "")"
+        writeView.textView.text = "\(memo.title)\n\(memo.content)"
     }
     
     
@@ -117,7 +117,7 @@ final class WriteMemoViewController: BaseViewController {
     
     
     @objc private func shareBarButtonTapped() {
-        let activityViewController = UIActivityViewController(activityItems: [writeView.textView.text], applicationActivities: [])
+        let activityViewController = UIActivityViewController(activityItems: [writeView.textView.text ?? ""], applicationActivities: [])
         transition(activityViewController, transitionStyle: .present)
     }
     
