@@ -5,9 +5,8 @@
 //  Created by 신동희 on 2022/09/01.
 //
 
-import Foundation
-import RealmSwift
 import UIKit
+import RealmSwift
 
 
 protocol MemoDataRepositoryType {
