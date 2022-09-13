@@ -8,28 +8,28 @@
 import UIKit
 
 
-public protocol ReusableProtocol {
+protocol ReusableProtocol {
     static var identifier: String { get }
 }
 
 
 
 extension UIViewController: ReusableProtocol {
-    public static var identifier: String {
+    static var identifier: String {
         return String(describing: self)
     }
 }
 
 
 extension UITableViewCell: ReusableProtocol {
-    public static var identifier: String {
+    static var identifier: String {
         return String(describing: self)
     }
 }
 
 
 extension UITableViewHeaderFooterView: ReusableProtocol {
-    public static var identifier: String {
+    static var identifier: String {
         return String(describing: self)
     }
 }
