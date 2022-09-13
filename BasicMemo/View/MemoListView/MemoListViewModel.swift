@@ -72,7 +72,7 @@ struct MemoListViewModel {
         guard
             (repository.pinMemoCount > 0 && section == 0) ||
             (repository.memoCount > 0 && section == 1)
-        else { return 0 }
+        else { return CGFloat.leastNormalMagnitude }
         
         return 60
     }

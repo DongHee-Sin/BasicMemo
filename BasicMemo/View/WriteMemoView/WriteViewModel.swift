@@ -62,7 +62,7 @@ struct WriteViewModel {
             return
         }
 
-        if inputText == "" {
+        if inputText.isEmpty {
             try removeMemo(memo: readMemo)
         }else {
             try updateMemo(memo: readMemo)
@@ -80,7 +80,7 @@ struct WriteViewModel {
     
     
     private func createMemo() throws {
-        guard inputText != "" else { return }
+        guard !inputText.isEmpty else { return }
         
         let result = separatByEnter()
         let memo = Memo(title: result.title, content: result.content)
