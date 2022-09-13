@@ -29,7 +29,7 @@ final class PopUpViewController: BaseViewController {
     
     
     @objc private  func okButtonTapped() {
-        UserDefaults.standard.set(true, forKey: "PopUp")
+        UserDefaultManager.shared.isInitialLaunch = false
         dismiss(animated: true)
     }
 }

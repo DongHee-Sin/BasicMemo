@@ -27,6 +27,7 @@
 		D08969CB28BF2820003F6A30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08969CA28BF2820003F6A30 /* Assets.xcassets */; };
 		D08969CE28BF2820003F6A30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08969CC28BF2820003F6A30 /* LaunchScreen.storyboard */; };
 		D08969DB28BF2CA1003F6A30 /* MemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */; };
+		D0B5564E28D0C81D00383412 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5564D28D0C81D00383412 /* UserDefaultManager.swift */; };
 		D0BB248028BF32E800DE0C66 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB247F28BF32E800DE0C66 /* Realm */; };
 		D0BB248228BF32E800DE0C66 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB248128BF32E800DE0C66 /* RealmSwift */; };
 		D0BB248528BF330D00DE0C66 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0BB248428BF330D00DE0C66 /* SnapKit */; };
@@ -62,6 +63,7 @@
 		D08969CD28BF2820003F6A30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08969CF28BF2820003F6A30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08969DA28BF2CA1003F6A30 /* MemoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewController.swift; sourceTree = "<group>"; };
+		D0B5564D28D0C81D00383412 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		D0BB248A28BF3CD100DE0C66 /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
 		D0BB248E28BF3D2500DE0C66 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		D0BB249028BF3E0700DE0C66 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				D00AC46128C4F96C006BC9F9 /* DateFormatManager.swift */,
+				D0B5564D28D0C81D00383412 /* UserDefaultManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				D06FCFBB28BF9CF000BBE471 /* UIViewController+Extension.swift in Sources */,
 				D0BB249428BF3E4A00DE0C66 /* UIColor+Extension.swift in Sources */,
 				D00F027C28C2021F0015398F /* WriteView.swift in Sources */,
+				D0B5564E28D0C81D00383412 /* UserDefaultManager.swift in Sources */,
 				D0BB248F28BF3D2500DE0C66 /* BaseViewController.swift in Sources */,
 				D08969C228BF281F003F6A30 /* AppDelegate.swift in Sources */,
 				D00AC45F28C4EDF4006BC9F9 /* UIFont+Extension.swift in Sources */,

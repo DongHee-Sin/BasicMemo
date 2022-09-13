@@ -102,7 +102,7 @@ final class MemoListViewController: BaseViewController {
     
     
     private func presentPopUp() {
-        if !UserDefaults.standard.bool(forKey: "PopUp") {
+        if UserDefaultManager.shared.isInitialLaunch {
             let popUpVC = PopUpViewController()
             popUpVC.view.backgroundColor = .black.withAlphaComponent(0.5)
             transition(popUpVC, transitionStyle: .presentOverFullScreen)
