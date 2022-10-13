@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import FirebaseCore
 import FirebaseMessaging
+import RealmSwift
 
 
 @main
@@ -20,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        
+        
+        // Realm Migration
+        realmMigration()
         
         
         // Firebase 초기화
@@ -87,6 +92,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
+// MARK: - Realm Migration
+extension AppDelegate {
+    
+    func realmMigration() {
+        
+        let config = Realm.Configuration(schemaVersion: 8) { migration, oldSchemaVersion in
+            
+            if oldSchemaVersion < 1 {}  // 컬럼 추가
+            
+            if oldSchemaVersion < 2 {}  // 컬럼 삭제
+            
+            if oldSchemaVersion < 3 {   // isSetPin 컬럼을 Bool에서 Int로 타입 변환
+                migration.enumerateObjects(ofType: Memo.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    new["isSetPin"] = ((old["isSetPin"] as? Bool) ?? false) ? 1 : 0
+                }
+            }
+            
+            if oldSchemaVersion < 4 {   // isSetPin의 타입 원상복구
+                migration.enumerateObjects(ofType: Memo.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    new["isSetPin"] = ((old["isSetPin"] as? Int) ?? 0) == 0 ? false : true
+                }
+            }
+            
+            if oldSchemaVersion < 5 {}  // 컬럼 추가
+            
+            if oldSchemaVersion < 6 {   // 컬럼 추가 (기본값 임의 설정)
+                migration.enumerateObjects(ofType: Memo.className()) { _, newObject in
+                    guard let new = newObject else { return }
+                    
+                    new["test2"] = 7.7
+                }
+            }
+            
+            if oldSchemaVersion < 7 {   // 컬럼 추가 (기존 컬럼 데이터를 사용하여 값 할당)
+                migration.enumerateObjects(ofType: Memo.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    new["mixValue"] = (old["test"] as? Double ?? 0) + (old["test2"] as? Double ?? 0)
+                }
+            }
+            
+            if oldSchemaVersion < 8 {   // 컬럼 이름 변경
+                migration.renameProperty(onType: Memo.className(), from: "savedDate", to: "memoDate")
+            }
+            
+        }
+        
+        Realm.Configuration.defaultConfiguration = config
+        
+    }
+    
+}
+
+
+
+
+// MARK: - UNUserNotification
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
@@ -122,7 +191,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 
 
-
+// MARK: - MessagingDelegate
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(String(describing: fcmToken))")

@@ -101,6 +101,6 @@ class MemoListTableViewCell: UITableViewCell {
             contentLabel.attributedText = data.content.changeColorSpecificText(text: keyword)
         }
         
-        dateLabel.text = DateFormatManager.shared.format(date: data.savedDate)
+        dateLabel.text = DateFormatManager.shared.format(date: data.memoDate)
     }
 }

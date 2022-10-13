@@ -95,7 +95,7 @@ struct WriteViewModel {
         try repository.update(memo: memo) { memo in
             memo.title = result.title
             memo.content = result.content
-            memo.savedDate = Date()
+            memo.memoDate = Date()
         }
     }
     

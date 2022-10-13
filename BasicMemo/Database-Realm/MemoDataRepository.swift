@@ -63,7 +63,7 @@ final class MemoDataRepository: MemoDataRepositoryType {
     
     // MARK: - Init
     private init() {
-        self.totalMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "savedDate", ascending: false)
+        self.totalMemoList = localRealm.objects(Memo.self).sorted(byKeyPath: "memoDate", ascending: false)
         
         self.memoList = totalMemoList.where {
             $0.isSetPin == false
