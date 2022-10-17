@@ -97,7 +97,7 @@ extension AppDelegate {
     
     func realmMigration() {
         
-        let config = Realm.Configuration(schemaVersion: 8) { migration, oldSchemaVersion in
+        let config = Realm.Configuration(schemaVersion: 9) { migration, oldSchemaVersion in
             
             if oldSchemaVersion < 1 {}  // 컬럼 추가
             
@@ -143,6 +143,8 @@ extension AppDelegate {
             if oldSchemaVersion < 8 {   // 컬럼 이름 변경
                 migration.renameProperty(onType: Memo.className(), from: "savedDate", to: "memoDate")
             }
+            
+            if oldSchemaVersion < 9 { }  // 불필요한 컬럼 삭제
             
         }
         

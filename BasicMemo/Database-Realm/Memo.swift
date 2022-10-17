@@ -14,9 +14,6 @@ final class Memo: Object {
     @Persisted var content: String
     @Persisted var memoDate: Date
     @Persisted var isSetPin: Bool
-    @Persisted var test: Double
-    @Persisted var test2: Double
-    @Persisted var mixValue: Double
 
     
     @Persisted(primaryKey: true) var objectId: ObjectId
@@ -25,9 +22,7 @@ final class Memo: Object {
         self.init()
         self.title = title
         self.content = content
-        memoDate = Date()
-        isSetPin = false
-        test2 = 7.7
-        mixValue = test + test2
+        self.memoDate = Date()
+        self.isSetPin = false
     }
 }
