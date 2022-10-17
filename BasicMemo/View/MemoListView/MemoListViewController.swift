@@ -7,6 +7,9 @@
 
 import UIKit
 
+import RealmSwift
+
+
 final class MemoListViewController: BaseViewController {
 
     // MARK: - Propertys
@@ -28,6 +31,10 @@ final class MemoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // MARK: - Realm List Test
+        createTestData()
     }
     
     
@@ -260,4 +267,42 @@ extension MemoListViewController: UISearchResultsUpdating {
         viewModel.searchKeyword = searchController.searchBar.text ?? ""
         resultTableViewController.tableView.reloadData()
     }
+}
+
+
+
+
+// MARK: - Realm List Test
+extension MemoListViewController {
+    
+    func createTestData() {
+        let localRealm = try! Realm()
+        
+        
+//        try! localRealm.write {
+//
+//            let folderTask = Folder(title: "test1")
+//            let memoTask = Memo(title: "memoTitle", content: "memoContent")
+//
+//            folderTask.memoList.append(memoTask)
+//
+//            localRealm.add(folderTask)
+//        }
+        
+        
+//        try! localRealm.write {
+//
+//            let folderTask = Folder(title: "test2")
+//
+//            for i in 1...10 {
+//                let memoTask = Memo(title: "memoTitle \(i)", content: "memoContent \(i * 10)")
+//
+//                folderTask.memoList.append(memoTask)
+//            }
+//
+//            localRealm.add(folderTask)
+//
+//        }
+    }
+    
 }

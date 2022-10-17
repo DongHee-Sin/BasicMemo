@@ -26,3 +26,18 @@ final class Memo: Object {
         self.isSetPin = false
     }
 }
+
+
+
+// MARK: - Realm List Test
+final class Folder: Object {
+    @Persisted var title: String
+    @Persisted var memoList: List<Memo>
+    
+    @Persisted(primaryKey: true) var objectId: ObjectId
+    
+    convenience init(title: String) {
+        self.init()
+        self.title = title
+    }
+}
