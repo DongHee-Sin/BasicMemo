@@ -303,6 +303,23 @@ extension MemoListViewController {
 //            localRealm.add(folderTask)
 //
 //        }
+        
+        
+        try! localRealm.write {
+            
+            let folderTask = Folder(title: "Embedded Object Test")
+            
+            let user = {
+                let user = User()
+                user.name = "JSON"
+                user.age = 25
+                return user
+            }()
+            
+            folderTask.user = user
+            
+            localRealm.add(folderTask)
+        }
     }
     
 }

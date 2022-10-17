@@ -36,8 +36,18 @@ final class Folder: Object {
     
     @Persisted(primaryKey: true) var objectId: ObjectId
     
+    @Persisted var user: User?
+    
     convenience init(title: String) {
         self.init()
         self.title = title
     }
+}
+
+
+
+// MARK: - Embedded Object Test
+final class User: EmbeddedObject {
+    @Persisted var name: String
+    @Persisted var age: Int
 }
