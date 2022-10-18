@@ -1,5 +1,5 @@
 //
-//  LCFolderListViewController.swift
+//  LCMemoListViewController.swift
 //  BasicMemo
 //
 //  Created by 신동희 on 2022/10/18.
@@ -7,14 +7,18 @@
 
 import UIKit
 
-final class LCFolderListViewController: BaseViewController {
+final class LCMemoListViewController: BaseViewController {
 
     // MARK: - Propertys
-    var cellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Folder>!
+    var cellRegistration: UICollectionView.CellRegistration<UICollectionViewListCell, Memo>!
     
     private let viewModel = LCListViewModel.shared
     
     private let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
+    
+    var folder: Folder!
+    
+    private lazy var memoList = viewModel.fetchMemoList(folder: folder)
     
     
     
@@ -48,12 +52,12 @@ final class LCFolderListViewController: BaseViewController {
         
         listView.collectionView.contentInset = UIEdgeInsets(top: 12, left: .zero, bottom: .zero, right: .zero)
         
-        cellRegistration = viewModel.folderCellRegistration()
+        cellRegistration = viewModel.memoCellRegistration()
     }
     
     
     override func setNavigationBar() {
-        navigationItem.title = "폴더"
+        navigationItem.title = folder?.title ?? ""
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setToolBarItem()
@@ -64,13 +68,11 @@ final class LCFolderListViewController: BaseViewController {
         self.navigationController?.isToolbarHidden = false
         
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let createFolderButton = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(createFolderButtonTapped))
         let writeMemoBarButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(writeButtonTapped))
         
-        createFolderButton.tintColor = .iconTint
         writeMemoBarButton.tintColor = .iconTint
         
-        self.toolbarItems = [createFolderButton, flexibleSpaceItem, writeMemoBarButton]
+        self.toolbarItems = [flexibleSpaceItem, writeMemoBarButton]
     }
     
     
@@ -78,11 +80,6 @@ final class LCFolderListViewController: BaseViewController {
         let vc = WriteMemoViewController()
         vc.currentViewStatus = .write
         transition(vc, transitionStyle: .push)
-    }
-    
-    
-    @objc private func createFolderButtonTapped() {
-        print("createFolderButtonTapped")
     }
     
     
@@ -98,27 +95,18 @@ final class LCFolderListViewController: BaseViewController {
 
 
 // MARK: - CollectionView Protocol
-extension LCFolderListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension LCMemoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.folderCount
+        memoList.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let folder = viewModel.fetchFolder(at: indexPath.row)
+        let memo = memoList[indexPath.item]
         
-        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: folder)
+        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: memo)
         
         return cell
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = LCMemoListViewController()
-        
-        vc.folder = viewModel.fetchFolder(at: indexPath.item)
-        
-        transition(vc, transitionStyle: .push)
     }
 }

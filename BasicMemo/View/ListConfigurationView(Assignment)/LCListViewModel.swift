@@ -80,4 +80,32 @@ final class LCListViewModel {
         })
         
     }
+    
+    
+    func memoCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Memo> {
+        
+        return UICollectionView.CellRegistration(handler: { cell, indexPath, itemIdentifier in
+            
+            var content = UIListContentConfiguration.cell()
+            
+            content.text = itemIdentifier.title
+            content.textProperties.numberOfLines = 1
+            content.textProperties.font = .cellTitleFont
+            
+            content.secondaryText = itemIdentifier.content
+            content.prefersSideBySideTextAndSecondaryText = false
+            content.secondaryTextProperties.font = .cellContentFont
+            content.secondaryTextProperties.color = .systemGray
+            
+            cell.contentConfiguration = content
+        })
+        
+    }
+    
+    
+    func fetchMemoList(folder: Folder) -> Results<Memo> {
+        return memoList.where {
+            $0.folder == folder
+        }
+    }
 }
