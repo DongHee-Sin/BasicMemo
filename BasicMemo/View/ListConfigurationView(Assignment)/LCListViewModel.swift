@@ -30,6 +30,9 @@ final class LCListViewModel {
     private var folderList: Results<Folder>!
     private var memoList: Results<Memo>!
     
+    var folderCount: Int { folderList.count }
+    var memoCount: Int { memoList.count }
+    
     
     private var collectionLayoutListConfiguration: UICollectionLayoutListConfiguration {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
@@ -48,23 +51,30 @@ final class LCListViewModel {
     
     
     // MARK: - Methods
+    func fetchFolder(at index: Int) -> Folder {
+        return folderList[index]
+    }
+    
+    
     func folderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Folder> {
         
-        return UICollectionView.CellRegistration(handler: { [weak self] cell, indexPath, itemIdentifier in
-            guard let self = self else { return }
+        return UICollectionView.CellRegistration(handler: { cell, indexPath, itemIdentifier in
             
             var content = UIListContentConfiguration.cell()
             
-            content.text = self.folderList[indexPath.item].title
+            content.text = itemIdentifier.title
             content.textProperties.numberOfLines = 1
             content.textProperties.font = .cellTitleFont
             
+            content.image = UIImage(systemName: itemIdentifier.imageString)
+            content.imageProperties.tintColor = .iconTint
             
+            content.secondaryText = "\(itemIdentifier.memoList.count)"
+            content.prefersSideBySideTextAndSecondaryText = true
+            content.secondaryTextProperties.font = .secondaryTextFont
+            content.secondaryTextProperties.color = .systemGray
             
-            cell.accessories = [
-                .checkmark(),
-                .disclosureIndicator()
-            ]
+            cell.accessories = [.disclosureIndicator()]
             
             cell.contentConfiguration = content
         })

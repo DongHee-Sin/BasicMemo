@@ -14,6 +14,8 @@ extension UIFont {
     
     static var cellTitleFont: UIFont { .boldSystemFont(ofSize: 17) }
     
+    static var secondaryTextFont: UIFont { .systemFont(ofSize: 17) }
+    
     static var cellContentFont: UIFont { .systemFont(ofSize: 13) }
     
     static var textViewFont: UIFont { .boldSystemFont(ofSize: 15) }

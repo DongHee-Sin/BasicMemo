@@ -11,7 +11,7 @@ import UIKit
 final class LCListView: BaseView {
     
     // MARK: - Propertys
-    let collectionView = UICollectionView()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: LCListViewModel.shared.collectionViewListLayout)
     
     
     
