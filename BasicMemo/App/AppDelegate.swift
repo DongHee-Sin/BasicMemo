@@ -97,7 +97,7 @@ extension AppDelegate {
     
     func realmMigration() {
         
-        let config = Realm.Configuration(schemaVersion: 11) { migration, oldSchemaVersion in
+        let config = Realm.Configuration(schemaVersion: 14) { migration, oldSchemaVersion in
             
             if oldSchemaVersion < 1 {}  // 컬럼 추가
             
@@ -149,6 +149,12 @@ extension AppDelegate {
             if oldSchemaVersion < 10 { }  // Folder Table 생성 (Realm List Test)
             
             if oldSchemaVersion < 11 { }  // Embedded Object Test
+            
+            if oldSchemaVersion < 12 { }  // Folder Table에 imageString 스키마 추가
+            
+            if oldSchemaVersion < 13 { }  // Memo Table에 LinkingObject 스키마 추가 (Folder)
+                
+            if oldSchemaVersion < 14 { }  // Folder Table에 Section 스키마 추가
         }
         
         Realm.Configuration.defaultConfiguration = config

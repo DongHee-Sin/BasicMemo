@@ -15,6 +15,7 @@ final class Memo: Object {
     @Persisted var memoDate: Date
     @Persisted var isSetPin: Bool
 
+    @Persisted(originProperty: "memoList") var folder: LinkingObjects<Folder>
     
     @Persisted(primaryKey: true) var objectId: ObjectId
     
@@ -32,15 +33,20 @@ final class Memo: Object {
 // MARK: - Realm List Test
 final class Folder: Object {
     @Persisted var title: String
+    @Persisted var imageString: String
+    @Persisted var section: FolderSection
+    
     @Persisted var memoList: List<Memo>
     
     @Persisted(primaryKey: true) var objectId: ObjectId
     
     @Persisted var user: User?
     
-    convenience init(title: String) {
+    convenience init(title: String, imageString: String, section: FolderSection) {
         self.init()
         self.title = title
+        self.imageString = imageString
+        self.section = section
     }
 }
 
@@ -50,4 +56,11 @@ final class Folder: Object {
 final class User: EmbeddedObject {
     @Persisted var name: String
     @Persisted var age: Int
+}
+
+
+
+enum FolderSection: String, PersistableEnum {
+    case local
+    case iCloud
 }

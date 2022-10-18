@@ -305,21 +305,46 @@ extension MemoListViewController {
 //        }
         
         
-        try! localRealm.write {
-            
-            let folderTask = Folder(title: "Embedded Object Test")
-            
-            let user = {
-                let user = User()
-                user.name = "JSON"
-                user.age = 25
-                return user
-            }()
-            
-            folderTask.user = user
-            
-            localRealm.add(folderTask)
-        }
+//        try! localRealm.write {
+//            
+//            let folderTask = Folder(title: "Embedded Object Test")
+//            
+//            let user = {
+//                let user = User()
+//                user.name = "JSON"
+//                user.age = 25
+//                return user
+//            }()
+//            
+//            folderTask.user = user
+//            
+//            localRealm.add(folderTask)
+//        }
+        
+        
+//        try! localRealm.write {
+//
+//            let quickMemo = Folder(title: "빠른 메모", imageString: "scribble", section: .local)
+//            let memo = Folder(title: "메모", imageString: "folder", section: .iCloud)
+//            let trash = Folder(title: "최근 삭제된 항목", imageString: "trash", section: .iCloud)
+//
+//            (1...10).forEach { num in
+//                quickMemo.memoList.append(Memo(title: "\(num)번 빠른 메모", content: "메모 텍스트"))
+//            }
+//
+//            (1...10).forEach { num in
+//                memo.memoList.append(Memo(title: "\(num)번 메모", content: "메모 텍스트"))
+//            }
+//
+//            (1...10).forEach { num in
+//                trash.memoList.append(Memo(title: "\(num)번 삭제된 메모", content: "메모 텍스트"))
+//            }
+//
+//
+//            localRealm.add(quickMemo)
+//            localRealm.add(memo)
+//            localRealm.add(trash)
+//        }
     }
     
 }
