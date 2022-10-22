@@ -56,6 +56,13 @@ final class LCListViewModel {
     }
     
     
+    func fetchMemoList(folder: Folder) -> Results<Memo> {
+        return memoList.where {
+            $0.folder == folder
+        }
+    }
+    
+    
     func folderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Folder> {
         
         return UICollectionView.CellRegistration(handler: { cell, indexPath, itemIdentifier in
@@ -75,6 +82,10 @@ final class LCListViewModel {
             content.secondaryTextProperties.color = .systemGray
             
             cell.accessories = [.disclosureIndicator()]
+            
+            let clearView = UIView(frame: CGRect())
+            clearView.backgroundColor = .clear
+            cell.selectedBackgroundView = clearView
             
             cell.contentConfiguration = content
         })
@@ -97,15 +108,12 @@ final class LCListViewModel {
             content.secondaryTextProperties.font = .cellContentFont
             content.secondaryTextProperties.color = .systemGray
             
+            let clearView = UIView(frame: CGRect())
+            clearView.backgroundColor = .clear
+            cell.selectedBackgroundView = clearView
+            
             cell.contentConfiguration = content
         })
         
-    }
-    
-    
-    func fetchMemoList(folder: Folder) -> Results<Memo> {
-        return memoList.where {
-            $0.folder == folder
-        }
     }
 }
