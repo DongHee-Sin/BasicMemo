@@ -30,6 +30,12 @@ final class LCListViewModel {
     private var folderList: Results<Folder>!
     private var memoList: Results<Memo>!
     
+    var fetchFolderList: [Folder] {
+        var folders: [Folder] = []
+        folders.append(contentsOf: folderList)
+        return folders
+    }
+    
     var folderCount: Int { folderList.count }
     var memoCount: Int { memoList.count }
     
@@ -56,10 +62,11 @@ final class LCListViewModel {
     }
     
     
-    func fetchMemoList(folder: Folder) -> Results<Memo> {
-        return memoList.where {
-            $0.folder == folder
-        }
+    func fetchMemoList(folder: Folder) -> [Memo] {
+        let memoList = memoList.where { $0.folder == folder }
+        var memoArr: [Memo] = []
+        memoArr.append(contentsOf: memoList)
+        return memoArr
     }
     
     

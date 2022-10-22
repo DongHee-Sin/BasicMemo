@@ -20,6 +20,8 @@ final class LCMemoListViewController: BaseViewController {
     
     private lazy var memoList = viewModel.fetchMemoList(folder: folder)
     
+    private var dataSource: UICollectionViewDiffableDataSource<Int, Memo>!
+    
     
     
     
@@ -31,6 +33,7 @@ final class LCMemoListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     
@@ -94,7 +97,28 @@ final class LCMemoListViewController: BaseViewController {
 
 
 
-// MARK: - CollectionView Protocol
+// MARK: - CollectionView Datasource
+extension LCMemoListViewController {
+    
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Int, Memo>(collectionView: listView.collectionView, cellProvider: { [unowned self] collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return cell
+        })
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Memo>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(viewModel.fetchMemoList(folder: folder))
+        
+        dataSource.apply(snapshot)
+    }
+    
+}
+
+
+
+
+// MARK: - CollectionView Delegate
 extension LCMemoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

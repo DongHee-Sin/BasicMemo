@@ -17,6 +17,8 @@ final class LCFolderListViewController: BaseViewController {
     
     private let resultTableViewController = SearchResultTableViewController(style: .insetGrouped)
     
+    private var dataSource: UICollectionViewDiffableDataSource<Int, Folder>!
+    
     
     
     
@@ -28,6 +30,7 @@ final class LCFolderListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     
@@ -43,7 +46,7 @@ final class LCFolderListViewController: BaseViewController {
     
     private func setCollectionView() {
         listView.collectionView.delegate = self
-        listView.collectionView.dataSource = self
+        configureDataSource()
         
         listView.collectionView.collectionViewLayout = viewModel.collectionViewListLayout
         
@@ -98,23 +101,29 @@ final class LCFolderListViewController: BaseViewController {
 
 
 
-// MARK: - CollectionView Protocol
-extension LCFolderListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - CollectionView Datasource
+extension LCFolderListViewController {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.folderCount
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Int, Folder>(collectionView: listView.collectionView, cellProvider: { [unowned self] collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            return cell
+        })
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Folder>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(viewModel.fetchFolderList)
+        
+        dataSource.apply(snapshot)
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let folder = viewModel.fetchFolder(at: indexPath.row)
-        
-        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: folder)
-        
-        return cell
-    }
-    
-    
+}
+
+
+
+
+// MARK: - CollectionView Delegate
+extension LCFolderListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = LCMemoListViewController()
         
