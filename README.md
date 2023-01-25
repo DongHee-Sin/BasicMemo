@@ -49,8 +49,4 @@
 <br/>
 
 ## Link
-[Notion](https://gold-eustoma-1c3.notion.site/SeSac-2-fa624e9054224fdbb952885648e5ae6a)
-* 개발 요구사항
-* 개발일지
-* 에러
-* 피드백 정리
+[개발 공수 및 Trouble Shooting](https://gold-eustoma-1c3.notion.site/MEMO-743d915ceda84c149c92238f66621023)
